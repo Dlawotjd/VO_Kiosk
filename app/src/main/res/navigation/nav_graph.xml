@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/guildLineFragment">
+
+    <fragment
+        android:id="@+id/guildLineFragment"
+        android:name="com.vo.vo_kiosk.View.GuildLineFragment"
+        android:label="fragment_guide_line_fragement"
+        tools:layout="@layout/fragment_guide_line_fragement" >
+        <action
+            android:id="@+id/action_guildLineFragment_to_choiceMenuFragment"
+            app:destination="@id/choiceMenuFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/choiceMenuFragment"
+        android:name="com.vo.vo_kiosk.View.ChoiceMenuFragment"
+        android:label="fragment_choice_menu"
+        tools:layout="@layout/fragment_choice_menu" >
+        <action
+            android:id="@+id/action_choiceMenuFragment_to_mainVoiceFragment"
+            app:destination="@id/mainVoiceFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/mainVoiceFragment"
+        android:name="com.vo.vo_kiosk.View.MainVoiceFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main_voice" />
+</navigation>
