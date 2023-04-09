@@ -1,7 +1,7 @@
-package com.vo.vo_kiosk
+package com.vo.vo_kiosk.ViewModel
 
 import androidx.lifecycle.ViewModel
 
-class GuileLine2ViewModel : ViewModel() {
+class MenuOrderViewModel : ViewModel() {
     // TODO: Implement the ViewModel
 }

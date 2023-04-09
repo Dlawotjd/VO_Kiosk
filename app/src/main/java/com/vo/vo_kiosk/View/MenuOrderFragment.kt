@@ -6,26 +6,24 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.vo.vo_kiosk.ViewModel.MainVoiceViewModel
-import com.vo.vo_kiosk.databinding.FragmentMainVoiceBinding
+import com.vo.vo_kiosk.ViewModel.MenuOrderViewModel
+import com.vo.vo_kiosk.R
+import com.vo.vo_kiosk.databinding.FragmentMenuOrlderBinding
 
-class MainVoiceFragment : Fragment() {
+class MenuOrderFragment : Fragment() {
 
-    private var _binding : FragmentMainVoiceBinding? = null
+    private var _binding : FragmentMenuOrlderBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: MainVoiceViewModel
+    private lateinit var viewModel: MenuOrderViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View {
-        _binding = FragmentMainVoiceBinding.inflate(inflater, container, false)
+    ): View? {
+        _binding = FragmentMenuOrlderBinding.inflate(inflater, container, false)
 
-        viewModel = ViewModelProvider(this)[MainVoiceViewModel::class.java]
-
-
-
+        viewModel = ViewModelProvider(this)[MenuOrderViewModel::class.java]
         return binding.root
     }
 

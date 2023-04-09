@@ -9,7 +9,7 @@
         android:id="@+id/guildLineFragment"
         android:name="com.vo.vo_kiosk.View.GuildLineFragment"
         android:label="fragment_guide_line_fragement"
-        tools:layout="@layout/fragment_guide_line_fragement" >
+        tools:layout="@layout/fragment_guide_line" >
         <action
             android:id="@+id/action_guildLineFragment_to_choiceMenuFragment"
             app:destination="@id/choiceMenuFragment" />
@@ -29,5 +29,14 @@
         android:id="@+id/mainVoiceFragment"
         android:name="com.vo.vo_kiosk.View.MainVoiceFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main_voice" />
+        tools:layout="@layout/fragment_main_voice" >
+        <action
+            android:id="@+id/action_mainVoiceFragment_to_menuOrlderFragment"
+            app:destination="@id/menuOrlderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/menuOrlderFragment"
+        android:name="com.vo.vo_kiosk.View.MenuOrderFragment"
+        android:label="fragment_menu_orlder"
+        tools:layout="@layout/fragment_menu_orlder" />
 </navigation>

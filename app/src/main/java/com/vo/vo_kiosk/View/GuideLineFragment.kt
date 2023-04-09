@@ -1,4 +1,4 @@
-package com.vo.vo_kiosk
+package com.vo.vo_kiosk.View
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,12 +9,12 @@ import android.widget.ImageView
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.vo.vo_kiosk.View.GuideFragment
-import com.vo.vo_kiosk.databinding.FragmentGuileLineBinding
+import com.vo.vo_kiosk.R
+import com.vo.vo_kiosk.databinding.FragmentGuideLineBinding
 
-class GuildLineFragment2 : Fragment() {
+class GuildLineFragment : Fragment() {
 
-    private var _binding : FragmentGuileLineBinding? = null
+    private var _binding : FragmentGuideLineBinding? = null
     private val binding get() = _binding!!
     private lateinit var pagerAdapter: GuideLineAdapter
     private lateinit var indicatorImageViews: Array<ImageView>
@@ -30,7 +30,7 @@ class GuildLineFragment2 : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentGuileLineBinding.inflate(inflater, container, false)
+        _binding = FragmentGuideLineBinding.inflate(inflater, container, false)
 
 //      pageView Adapter 부분
         pagerAdapter = GuideLineAdapter(this)

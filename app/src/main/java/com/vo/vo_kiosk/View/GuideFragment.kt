@@ -26,4 +26,5 @@ class GuideFragment : Fragment() {
         val layoutId = arguments?.getInt(ARG_PAGE_LAYOUT_ID) ?: 0
         return inflater.inflate(layoutId, container, false)
     }
+
 }
