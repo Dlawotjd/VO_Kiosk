@@ -22,7 +22,7 @@ class MainVoiceFragment : Fragment() {
     ): View {
         _binding = FragmentMainVoiceBinding.inflate(inflater, container, false)
 
-        viewModel = ViewModelProvider(this).get(MainVoiceViewModel::class.java)
+        viewModel = ViewModelProvider(this)[MainVoiceViewModel::class.java]
 
 
 
