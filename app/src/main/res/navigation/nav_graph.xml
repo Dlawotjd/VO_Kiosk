@@ -31,12 +31,12 @@
         android:label="fragment_main"
         tools:layout="@layout/fragment_main_voice" >
         <action
-            android:id="@+id/action_mainVoiceFragment_to_menuOrlderFragment"
-            app:destination="@id/menuOrlderFragment" />
+            android:id="@+id/action_mainVoiceFragment_to_menuOrderFragment"
+            app:destination="@id/menuOrderFragment" />
     </fragment>
     <fragment
-        android:id="@+id/menuOrlderFragment"
+        android:id="@+id/menuOrderFragment"
         android:name="com.vo.vo_kiosk.View.MenuOrderFragment"
         android:label="fragment_menu_orlder"
-        tools:layout="@layout/fragment_menu_orlder" />
+        tools:layout="@layout/fragment_menu_order" />
 </navigation>

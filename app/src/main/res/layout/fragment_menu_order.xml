@@ -27,7 +27,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/itd_t"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
@@ -44,9 +44,9 @@
             android:layout_height="80dp"
             android:src="@drawable/baseline_mic_24"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/textView"
-            app:layout_constraintStart_toStartOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintEnd_toEndOf="@+id/itd_t"
+            app:layout_constraintStart_toStartOf="@+id/itd_t"
+            app:layout_constraintTop_toBottomOf="@+id/itd_t" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/order_sound_wave"
@@ -55,9 +55,9 @@
             android:src="@drawable/sound_wave"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/textView"
-            app:layout_constraintStart_toStartOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintEnd_toEndOf="@+id/itd_t"
+            app:layout_constraintStart_toStartOf="@+id/itd_t"
+            app:layout_constraintTop_toBottomOf="@+id/itd_t" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
