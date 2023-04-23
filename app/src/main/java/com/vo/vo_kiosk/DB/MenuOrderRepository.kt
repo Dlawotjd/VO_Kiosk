@@ -42,6 +42,7 @@ class MenuOrderRepository {
 //      서버 데이터 확인
         mSocket.on("message", onMessageReceived)
 
+
     }
 
 //  인식된 음성 서버에 데이터 전송

@@ -22,6 +22,7 @@ class GuildLineFragment : Fragment() {
     private val pageChangeCallback = object : ViewPager2.OnPageChangeCallback(){
         override fun onPageSelected(position: Int) {
             super.onPageSelected(position)
+
             updateIndicator(position)
         }
     }

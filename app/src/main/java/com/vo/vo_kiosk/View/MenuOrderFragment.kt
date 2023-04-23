@@ -12,33 +12,36 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
 import com.vo.vo_kiosk.ViewModel.MenuOrderViewModel
 import com.vo.vo_kiosk.R
-import com.vo.vo_kiosk.databinding.FragmentMenuOrlderBinding
+import com.vo.vo_kiosk.databinding.FragmentMenuOrderBinding
 
 class MenuOrderFragment : Fragment() {
 
-    private var _binding : FragmentMenuOrlderBinding? = null
+    private var _binding : FragmentMenuOrderBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var viewModel: MenuOrderViewModel
 
     private lateinit var speechRecognizer : SpeechRecognizer
+    private lateinit var itd_t : TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentMenuOrlderBinding.inflate(inflater, container, false)
+        _binding = FragmentMenuOrderBinding.inflate(inflater, container, false)
 
         viewModel = ViewModelProvider(this)[MenuOrderViewModel::class.java]
 
         val order_mic = binding.orderMic
         val sound_wave = binding.orderSoundWave
+         itd_t = binding.itdT
 
         viewModel.orderData.observe(viewLifecycleOwner, Observer {
             if (it != null) {
@@ -120,6 +123,7 @@ class MenuOrderFragment : Fragment() {
                 }
                 Toast.makeText(context, "에러가 발생했습니다. $message", Toast.LENGTH_SHORT).show()
             }
+
 //          인식 결과가 준비되면 호출
 //          말을 하면 speechResult에 데이터를 넣는다
             override fun onResults(results: Bundle?) {
@@ -141,7 +145,7 @@ class MenuOrderFragment : Fragment() {
 
         TedPermission.create()
             .setPermissionListener(permissionListener)
-            .setDeniedMessage("만약 권한을 거부하시면 정상적인 기능 이용이 어려울 수 있습니다.\n권한을 설정해주세요.")
+            .setDeniedMessage("만약 권한을 거부하시면 정상적인 기능 이용이 어려울 수 있습니다.\n설정 창에서 권한을 설정해주세요.")
             .setPermissions(android.Manifest.permission.RECORD_AUDIO)
             .check()
 
@@ -159,6 +163,7 @@ class MenuOrderFragment : Fragment() {
             putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ko-KR")
             putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak now")
         }
+        itd_t.text = "음성인식 중입니다."
         speechRecognizer.startListening(intent)
     }
 
