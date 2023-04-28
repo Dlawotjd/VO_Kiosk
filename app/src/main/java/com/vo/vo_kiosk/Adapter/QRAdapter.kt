@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -13,35 +14,12 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 import com.vo.vo_kiosk.R
 
-class QRAdapter : ListAdapter<String, QRAdapter.QrViewHolder>(DIFF_CALLBACK) {
-
-    companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<String>() {
-            override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
-                return oldItem == newItem
-            }
-
-            override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
-                return oldItem == newItem
-            }
-        }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QrViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.qr_item, parent, false)
-        return QrViewHolder(itemView)
-    }
-
-    override fun onBindViewHolder(holder: QrViewHolder, position: Int) {
-        val data = getItem(position)
-        val bitmap = generateQRCode(data)
-        holder.qrImageView.setImageBitmap(bitmap)
-    }
+class QRAdapter(private val qrDataList: List<String>) : RecyclerView.Adapter<QRAdapter.QrViewHolder>() {
 
     private fun generateQRCode(data: String): Bitmap {
         val qrCodeWriter = QRCodeWriter()
-        val width = 500
-        val height = 500
+        val width = 1000
+        val height = 1000
         val bitMatrix = qrCodeWriter.encode(data, BarcodeFormat.QR_CODE, width, height)
         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
         for (x in 0 until width) {
@@ -54,5 +32,23 @@ class QRAdapter : ListAdapter<String, QRAdapter.QrViewHolder>(DIFF_CALLBACK) {
 
     inner class QrViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val qrImageView: ImageView = itemView.findViewById(R.id.qr_imageView)
+        val qrTextView : TextView = itemView.findViewById(R.id.qr_text)
     }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QrViewHolder {
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.qr_item, parent, false)
+        return QrViewHolder(itemView)
+    }
+
+    override fun onBindViewHolder(holder: QrViewHolder, position: Int) {
+        val data = qrDataList[position]
+        val bitmap = generateQRCode(data)
+        holder.qrImageView.setImageBitmap(bitmap)
+        holder.qrTextView.text = data
+    }
+
+    override fun getItemCount(): Int {
+        return qrDataList.size
+    }
+
 }

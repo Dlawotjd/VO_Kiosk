@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,8 +22,6 @@ class ChoiceMenuFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var viewModel: ChoiceMenuViewModel
-    private val qrAdapter = QRAdapter()
-    private lateinit var qrRecyclerView: RecyclerView
     private lateinit var shareQRViewModel : ShareQRViewModel
 
     override fun onCreateView(
@@ -31,26 +30,26 @@ class ChoiceMenuFragment : Fragment() {
     ): View {
         _binding = FragmentChoiceMenuBinding.inflate(inflater, container, false)
 
-        viewModel = ViewModelProvider(this).get(ChoiceMenuViewModel::class.java)
-        shareQRViewModel = ViewModelProvider(this)[ShareQRViewModel::class.java]
-
-        qrRecyclerView = binding.qrRecyclerView
+        viewModel = ViewModelProvider(this)[ChoiceMenuViewModel::class.java]
+        shareQRViewModel = ViewModelProvider(requireActivity())[ShareQRViewModel::class.java]
 
         binding.cardView1.setOnClickListener {
             findNavController().navigate(R.id.action_choiceMenuFragment_to_mainVoiceFragment)
         }
-
+        shareQRViewModel.qrData.observe(viewLifecycleOwner) { dataList ->
+            val qrPagerAdapter = QRAdapter(dataList)
+            binding.qrViewPager.adapter = qrPagerAdapter
+        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        qrRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        qrRecyclerView.adapter = qrAdapter
 
-        shareQRViewModel.qrData.observe(viewLifecycleOwner) { dataList ->
-            qrAdapter.submitList(dataList)
-        }
+
+//        shareQRViewModel.qrData.observe(viewLifecycleOwner) { dataList ->
+//            qrAdapter.submitList(dataList)
+//        }
     }
 
     override fun onDestroyView() {

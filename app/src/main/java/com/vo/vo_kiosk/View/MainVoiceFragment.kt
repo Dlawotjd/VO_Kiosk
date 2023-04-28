@@ -7,11 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import com.vo.vo_kiosk.R
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.vo.vo_kiosk.ViewModel.MainVoiceViewModel
 import com.vo.vo_kiosk.ViewModel.ShareQRViewModel
 import com.vo.vo_kiosk.databinding.FragmentMainVoiceBinding
+import kotlinx.coroutines.launch
 
 class MainVoiceFragment : Fragment() {
 
@@ -19,7 +20,7 @@ class MainVoiceFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var viewModel: MainVoiceViewModel
-    private val sharedViewModel: ShareQRViewModel by viewModels({ requireActivity() })
+    private lateinit var sharedViewModel: ShareQRViewModel
 
 
     override fun onCreateView(
@@ -29,7 +30,7 @@ class MainVoiceFragment : Fragment() {
         _binding = FragmentMainVoiceBinding.inflate(inflater, container, false)
 
         viewModel = ViewModelProvider(this)[MainVoiceViewModel::class.java]
-
+        sharedViewModel = ViewModelProvider(requireActivity())[ShareQRViewModel::class.java]
 
         binding.button.setOnClickListener {
             onButtonClicked()
@@ -37,13 +38,10 @@ class MainVoiceFragment : Fragment() {
 
         return binding.root
     }
-
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
     private fun onButtonClicked() {
         val newDataList = generateNewDataList()
         sharedViewModel.setQRData(newDataList)
@@ -54,6 +52,4 @@ class MainVoiceFragment : Fragment() {
         // QR 데이터 목록을 생성하는 로직을 여기에 구현하세요.
         return listOf("data1", "data2", "data3")
     }
-
-
 }

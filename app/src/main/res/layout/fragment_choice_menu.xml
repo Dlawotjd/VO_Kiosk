@@ -147,13 +147,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/t_qr" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/qr_recyclerView"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/qr_ViewPager"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view" />
+            app:layout_constraintTop_toBottomOf="@+id/t_qr" />
 
         <TextView
             android:id="@+id/textView2"
@@ -167,7 +168,7 @@
             android:textSize="15dp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/qr_recyclerView" />
+            app:layout_constraintTop_toBottomOf="@+id/qr_ViewPager" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/qr_text_recyclerView"

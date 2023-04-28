@@ -1,5 +1,6 @@
 package com.vo.vo_kiosk.ViewModel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,5 +11,6 @@ class ShareQRViewModel : ViewModel() {
 
     fun setQRData(dataList : List<String>) {
         _qrData.value = dataList
+        Log.d("qrDataList", "${dataList}")
     }
 }
