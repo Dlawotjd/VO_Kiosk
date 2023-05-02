@@ -30,6 +30,7 @@ class MainVoiceFragment : Fragment() {
         _binding = FragmentMainVoiceBinding.inflate(inflater, container, false)
 
         viewModel = ViewModelProvider(this)[MainVoiceViewModel::class.java]
+//        qr 데이터 생성 후 Fragment 간 공유를 위한 ViewModel
         sharedViewModel = ViewModelProvider(requireActivity())[ShareQRViewModel::class.java]
 
         binding.button.setOnClickListener {

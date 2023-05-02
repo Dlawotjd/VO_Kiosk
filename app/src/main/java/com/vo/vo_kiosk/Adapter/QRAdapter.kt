@@ -16,6 +16,7 @@ import com.vo.vo_kiosk.R
 
 class QRAdapter(private val qrDataList: List<String>) : RecyclerView.Adapter<QRAdapter.QrViewHolder>() {
 
+//    qr 생성 및 설정
     private fun generateQRCode(data: String): Bitmap {
         val qrCodeWriter = QRCodeWriter()
         val width = 1000
@@ -30,6 +31,7 @@ class QRAdapter(private val qrDataList: List<String>) : RecyclerView.Adapter<QRA
         return bitmap
     }
 
+//    qr_item View 선언
     inner class QrViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val qrImageView: ImageView = itemView.findViewById(R.id.qr_imageView)
         val qrTextView : TextView = itemView.findViewById(R.id.qr_text)
@@ -40,6 +42,7 @@ class QRAdapter(private val qrDataList: List<String>) : RecyclerView.Adapter<QRA
         return QrViewHolder(itemView)
     }
 
+//    Position 데이터 값을 할당해주고 qr 생성
     override fun onBindViewHolder(holder: QrViewHolder, position: Int) {
         val data = qrDataList[position]
         val bitmap = generateQRCode(data)

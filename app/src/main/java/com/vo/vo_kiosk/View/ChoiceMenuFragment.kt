@@ -23,7 +23,6 @@ class ChoiceMenuFragment : Fragment() {
 
     private lateinit var viewModel: ChoiceMenuViewModel
     private lateinit var shareQRViewModel : ShareQRViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -33,6 +32,8 @@ class ChoiceMenuFragment : Fragment() {
         viewModel = ViewModelProvider(this)[ChoiceMenuViewModel::class.java]
         shareQRViewModel = ViewModelProvider(requireActivity())[ShareQRViewModel::class.java]
 
+        binding.clickConstrain.visibility = View.VISIBLE
+
         binding.cardView1.setOnClickListener {
             findNavController().navigate(R.id.action_choiceMenuFragment_to_mainVoiceFragment)
         }
@@ -41,15 +42,6 @@ class ChoiceMenuFragment : Fragment() {
             binding.qrViewPager.adapter = qrPagerAdapter
         }
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-//        shareQRViewModel.qrData.observe(viewLifecycleOwner) { dataList ->
-//            qrAdapter.submitList(dataList)
-//        }
     }
 
     override fun onDestroyView() {

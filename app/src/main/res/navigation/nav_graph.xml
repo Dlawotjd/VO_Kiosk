@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/guildLineFragment">
+    app:startDestination="@id/facedetectFragment">
 
     <fragment
-        android:id="@+id/guildLineFragment"
-        android:name="com.vo.vo_kiosk.View.GuildLineFragment"
+        android:id="@+id/facedetectFragment"
+        android:name="com.vo.vo_kiosk.View.FaceDetectFragment"
         android:label="fragment_guide_line_fragement"
-        tools:layout="@layout/fragment_guide_line" >
+        tools:layout="@layout/fragment_facedetect" >
         <action
-            android:id="@+id/action_guildLineFragment_to_choiceMenuFragment"
+            android:id="@+id/action_facedetectFragment_to_choiceMenuFragment"
             app:destination="@id/choiceMenuFragment" />
     </fragment>
 
