@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".View.ChoiceMenuFragment">
+    tools:context=".View.ClickFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/click_constrain"
@@ -26,7 +26,7 @@
             app:strokeWidth="7dp">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardView1"
+                android:id="@+id/click_cardView"
                 android:layout_width="230dp"
                 android:layout_height="230dp"
                 android:layout_gravity="center"

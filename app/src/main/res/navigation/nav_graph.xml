@@ -17,12 +17,15 @@
 
     <fragment
         android:id="@+id/choiceMenuFragment"
-        android:name="com.vo.vo_kiosk.View.ChoiceMenuFragment"
+        android:name="com.vo.vo_kiosk.View.ClickFragment"
         android:label="fragment_choice_menu"
         tools:layout="@layout/fragment_choice_menu" >
         <action
             android:id="@+id/action_choiceMenuFragment_to_mainVoiceFragment"
             app:destination="@id/mainVoiceFragment" />
+        <action
+            android:id="@+id/action_choiceMenuFragment_to_clickMenuFragment"
+            app:destination="@id/clickMenuFragment" />
     </fragment>
 
     <fragment
@@ -39,4 +42,9 @@
         android:name="com.vo.vo_kiosk.View.MenuOrderFragment"
         android:label="fragment_menu_orlder"
         tools:layout="@layout/fragment_menu_order" />
+    <fragment
+        android:id="@+id/clickMenuFragment"
+        android:name="com.vo.vo_kiosk.View.ClickMenuFragment"
+        android:label="fragment_click_menu"
+        tools:layout="@layout/fragment_click_menu" />
 </navigation>

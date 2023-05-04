@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1051372896237",
+    "project_id": "vo-kiosk",
+    "storage_bucket": "vo-kiosk.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1051372896237:android:2dbc6352c289957b20b1e4",
+        "android_client_info": {
+          "package_name": "com.vo.vo_kiosk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1051372896237-qorf44chpajjqavgjmsmhk4sfum6i7th.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByZrfbWxfE5vSVt9ndfJd58-Xj2bxY0D4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1051372896237-qorf44chpajjqavgjmsmhk4sfum6i7th.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

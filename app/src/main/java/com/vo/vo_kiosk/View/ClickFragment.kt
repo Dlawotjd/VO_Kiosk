@@ -6,17 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.vo.vo_kiosk.Adapter.QRAdapter
 import com.vo.vo_kiosk.ViewModel.ChoiceMenuViewModel
 import com.vo.vo_kiosk.R
 import com.vo.vo_kiosk.ViewModel.ShareQRViewModel
 import com.vo.vo_kiosk.databinding.FragmentChoiceMenuBinding
 
-class ChoiceMenuFragment : Fragment() {
+class ClickFragment : Fragment() {
 
     private var _binding : FragmentChoiceMenuBinding? = null
     private val binding get() = _binding!!
@@ -33,10 +30,15 @@ class ChoiceMenuFragment : Fragment() {
         shareQRViewModel = ViewModelProvider(requireActivity())[ShareQRViewModel::class.java]
 
         binding.clickConstrain.visibility = View.VISIBLE
+//        binding.voiceCardView.visibility = View.VISIBLE
 
-        binding.cardView1.setOnClickListener {
+        binding.clickCardView.setOnClickListener {
+            findNavController().navigate(R.id.action_choiceMenuFragment_to_clickMenuFragment)
+        }
+        binding.voiceCardView.setOnClickListener {
             findNavController().navigate(R.id.action_choiceMenuFragment_to_mainVoiceFragment)
         }
+
         shareQRViewModel.qrData.observe(viewLifecycleOwner) { dataList ->
             val qrPagerAdapter = QRAdapter(dataList)
             binding.qrViewPager.adapter = qrPagerAdapter
