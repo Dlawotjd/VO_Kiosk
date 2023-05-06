@@ -2,15 +2,16 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    app:cardElevation="10dp"
-    app:cardCornerRadius="10dp">
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    app:cardElevation="5dp"
+    app:cardCornerRadius="10dp"
+    android:layout_margin="20dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="130dp"
-        android:layout_height="130dp">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/cmi_imageView"
@@ -28,10 +29,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
+            android:layout_marginTop="10dp"
+            android:textSize="15dp"
             android:text="불고기 버거"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="@+id/cmi_imageView"
             app:layout_constraintStart_toStartOf="@+id/cmi_imageView"
             app:layout_constraintTop_toBottomOf="@+id/cmi_imageView" />
+
+        <TextView
+            android:id="@+id/cmi_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:text="8000원"
+            app:layout_constraintEnd_toEndOf="@+id/cmi_textView"
+            app:layout_constraintStart_toStartOf="@+id/cmi_textView"
+            app:layout_constraintTop_toBottomOf="@+id/cmi_textView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

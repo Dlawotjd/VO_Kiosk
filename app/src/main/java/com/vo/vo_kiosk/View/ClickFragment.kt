@@ -36,7 +36,7 @@ class ClickFragment : Fragment() {
             findNavController().navigate(R.id.action_choiceMenuFragment_to_clickMenuFragment)
         }
         binding.voiceCardView.setOnClickListener {
-            findNavController().navigate(R.id.action_choiceMenuFragment_to_mainVoiceFragment)
+            findNavController().navigate(R.id.action_choiceMenuFragment_to_menuOrderFragment)
         }
 
         shareQRViewModel.qrData.observe(viewLifecycleOwner) { dataList ->

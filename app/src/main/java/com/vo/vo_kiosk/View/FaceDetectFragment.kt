@@ -61,6 +61,7 @@ class FaceDetectFragment : Fragment() {
 
         checkCameraPermission()
 
+        findNavController().navigate(R.id.action_facedetectFragment_to_choiceMenuFragment)
         return binding.root
     }
 
@@ -85,7 +86,7 @@ class FaceDetectFragment : Fragment() {
             val preview = Preview.Builder()
                 .build()
                 .also {
-                    it.setSurfaceProvider(binding.previewView.surfaceProvider)
+//                    it.setSurfaceProvider(binding.previewView.surfaceProvider)
                 }
 
             imageCapture = ImageCapture.Builder()
@@ -118,7 +119,7 @@ class FaceDetectFragment : Fragment() {
 
             val outputOptions = ImageCapture.OutputFileOptions.Builder(createTempFile())
                 .build()
-            binding.faceText.text = "얼굴 인식 중 입니다."
+//            binding.faceText.text = "얼굴 인식 중 입니다."
 
             imageCapture.takePicture(outputOptions, cameraExecutor,
                 object : ImageCapture.OnImageSavedCallback {

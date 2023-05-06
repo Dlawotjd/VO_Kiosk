@@ -6,28 +6,39 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
+import com.vo.vo_kiosk.Adapter.MenuAdapter
 import com.vo.vo_kiosk.R
 import com.vo.vo_kiosk.ViewModel.SideMenuViewModel
+import com.vo.vo_kiosk.databinding.FragmentSideMenuBinding
 
 class SideMenuFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = SideMenuFragment()
-    }
+    private var _binding : FragmentSideMenuBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var viewModel: SideMenuViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
-        return inflater.inflate(R.layout.fragment_side_menu, container, false)
+    ): View {
+        _binding = FragmentSideMenuBinding.inflate(inflater, container, false)
+
+        val recyclerView = binding.sideRecyclerView
+        recyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+
+        val menuAdapter = MenuAdapter()
+        recyclerView.adapter = menuAdapter
+
+        menuAdapter.submitList(null)
+
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(SideMenuViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 }

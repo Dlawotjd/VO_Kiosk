@@ -5,10 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".View.TabFragment.TotalMenuFragment">
 
-    <Button
-        android:id="@+id/button"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/total_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Hello" />
+        android:layout_height="match_parent"/>
 
 </FrameLayout>
