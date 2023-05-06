@@ -37,5 +37,14 @@
         android:id="@+id/clickMenuFragment"
         android:name="com.vo.vo_kiosk.View.ClickMenuFragment"
         android:label="fragment_click_menu"
-        tools:layout="@layout/fragment_click_menu" />
+        tools:layout="@layout/fragment_click_menu" >
+        <action
+            android:id="@+id/action_clickMenuFragment_to_orderDetailFragment"
+            app:destination="@id/orderDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderDetailFragment"
+        android:name="com.vo.vo_kiosk.View.TabFragment.OrderDetail.OrderDetailFragment"
+        android:label="fragment_order_detail"
+        tools:layout="@layout/fragment_order_detail" />
 </navigation>
