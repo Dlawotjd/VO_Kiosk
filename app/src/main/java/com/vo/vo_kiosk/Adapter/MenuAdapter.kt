@@ -3,6 +3,7 @@ package com.vo.vo_kiosk.Adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.DiffUtil
@@ -12,7 +13,11 @@ import com.bumptech.glide.Glide
 import com.vo.vo_kiosk.DTO.MenuDTO
 import com.vo.vo_kiosk.R
 
-class MenuAdapter() : ListAdapter<MenuDTO, MenuAdapter.MenuHolder>(MenuDiffCallback()){
+class MenuAdapter(private val onItemClickListener: OnItemClickListener) : ListAdapter<MenuDTO, MenuAdapter.MenuHolder>(MenuDiffCallback()){
+
+    interface OnItemClickListener {
+        fun onItemClick(menu: MenuDTO, itemView: View)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -25,6 +30,9 @@ class MenuAdapter() : ListAdapter<MenuDTO, MenuAdapter.MenuHolder>(MenuDiffCallb
 
         val menu = getItem(position)
         holder.bind(menu)
+        holder.itemView.setOnClickListener {
+            onItemClickListener.onItemClick(menu, holder.itemView)
+        }
 
     }
 
