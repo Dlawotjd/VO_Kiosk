@@ -20,10 +20,16 @@
         android:id="@+id/viewPager2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/click_tabLayout">
+
     </androidx.viewpager2.widget.ViewPager2>
+
+    <include
+        android:id="@+id/total_bottom_sheet"
+        layout="@layout/bottom_sheet"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

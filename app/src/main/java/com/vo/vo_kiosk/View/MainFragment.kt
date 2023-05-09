@@ -11,11 +11,11 @@ import com.vo.vo_kiosk.Adapter.QRAdapter
 import com.vo.vo_kiosk.ViewModel.ChoiceMenuViewModel
 import com.vo.vo_kiosk.R
 import com.vo.vo_kiosk.ViewModel.ShareQRViewModel
-import com.vo.vo_kiosk.databinding.FragmentChoiceMenuBinding
+import com.vo.vo_kiosk.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
 
-    private var _binding : FragmentChoiceMenuBinding? = null
+    private var _binding : FragmentMainBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var viewModel: ChoiceMenuViewModel
@@ -24,7 +24,7 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentChoiceMenuBinding.inflate(inflater, container, false)
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
 
         viewModel = ViewModelProvider(this)[ChoiceMenuViewModel::class.java]
         shareQRViewModel = ViewModelProvider(requireActivity())[ShareQRViewModel::class.java]
@@ -33,10 +33,10 @@ class MainFragment : Fragment() {
 //        binding.voiceCardView.visibility = View.VISIBLE
 
         binding.clickCardView.setOnClickListener {
-            findNavController().navigate(R.id.action_choiceMenuFragment_to_clickMenuFragment)
+            findNavController().navigate(R.id.action_Main_Fragment_to_clickMenuFragment)
         }
         binding.voiceCardView.setOnClickListener {
-            findNavController().navigate(R.id.action_choiceMenuFragment_to_menuOrderFragment)
+            findNavController().navigate(R.id.action_Main_Fragment_to_menuOrderFragment)
         }
 
         shareQRViewModel.qrData.observe(viewLifecycleOwner) { dataList ->

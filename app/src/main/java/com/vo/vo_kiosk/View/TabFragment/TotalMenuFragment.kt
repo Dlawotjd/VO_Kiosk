@@ -65,13 +65,6 @@ class TotalMenuFragment : Fragment(), MenuAdapter.OnItemClickListener{
         findNavController().navigate(R.id.action_clickMenuFragment_to_orderDetailFragment, bundle)
     }
 
-    override fun onPause() {
-        super.onPause()
-        val bottomSheetBehavior = BottomSheetBehavior.from(binding.totalBottomSheet.bottomSheetLayout)
-        if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED){
-            bottomSheetBehavior.state == BottomSheetBehavior.STATE_COLLAPSED
-        }
-    }
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
