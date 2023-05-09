@@ -13,7 +13,7 @@ import com.vo.vo_kiosk.R
 import com.vo.vo_kiosk.ViewModel.ShareQRViewModel
 import com.vo.vo_kiosk.databinding.FragmentChoiceMenuBinding
 
-class ClickFragment : Fragment() {
+class MainFragment : Fragment() {
 
     private var _binding : FragmentChoiceMenuBinding? = null
     private val binding get() = _binding!!
@@ -41,7 +41,7 @@ class ClickFragment : Fragment() {
 
         shareQRViewModel.qrData.observe(viewLifecycleOwner) { dataList ->
             val qrPagerAdapter = QRAdapter(dataList)
-            binding.qrViewPager.adapter = qrPagerAdapter
+            binding.bottomSheet.qrViewPager.adapter = qrPagerAdapter
         }
         return binding.root
     }

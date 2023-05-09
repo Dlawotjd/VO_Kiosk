@@ -12,19 +12,19 @@
         tools:layout="@layout/fragment_facedetect" >
         <action
             android:id="@+id/action_facedetectFragment_to_choiceMenuFragment"
-            app:destination="@id/choiceMenuFragment" />
+            app:destination="@id/Main_Fragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/choiceMenuFragment"
-        android:name="com.vo.vo_kiosk.View.ClickFragment"
+        android:id="@+id/Main_Fragment"
+        android:name="com.vo.vo_kiosk.View.MainFragment"
         android:label="fragment_choice_menu"
-        tools:layout="@layout/fragment_choice_menu" >
+        tools:layout="@layout/fragment_main" >
         <action
-            android:id="@+id/action_choiceMenuFragment_to_clickMenuFragment"
+            android:id="@+id/action_Main_Fragment_to_clickMenuFragment"
             app:destination="@id/clickMenuFragment" />
         <action
-            android:id="@+id/action_choiceMenuFragment_to_menuOrderFragment"
+            android:id="@+id/action_Main_Fragment_to_menuOrderFragment"
             app:destination="@id/menuOrderFragment" />
     </fragment>
 

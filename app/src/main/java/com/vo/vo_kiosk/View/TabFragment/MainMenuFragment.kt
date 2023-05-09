@@ -5,13 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.vo.vo_kiosk.Adapter.MenuAdapter
+import com.vo.vo_kiosk.DTO.MenuDTO
 import com.vo.vo_kiosk.R
 import com.vo.vo_kiosk.ViewModel.MainMenuViewModel
 import com.vo.vo_kiosk.databinding.FragmentMainMenuBinding
 
-class MainMenuFragment : Fragment() {
+class MainMenuFragment : Fragment(), MenuAdapter.OnItemClickListener {
 
     private var _binding : FragmentMainMenuBinding? = null
     private val binding get() = _binding!!
@@ -27,7 +29,7 @@ class MainMenuFragment : Fragment() {
         val mainRecyclerView = binding.mainRecyclerView
         mainRecyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
 
-        val menuAdapter = MenuAdapter()
+        val menuAdapter = MenuAdapter(this)
         mainRecyclerView.adapter = menuAdapter
 
         menuAdapter.submitList(null)
@@ -38,5 +40,9 @@ class MainMenuFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    override fun onItemClick(menu: MenuDTO, itemView : View) {
+        findNavController().navigate(R.id.action_clickMenuFragment_to_orderDetailFragment)
     }
 }

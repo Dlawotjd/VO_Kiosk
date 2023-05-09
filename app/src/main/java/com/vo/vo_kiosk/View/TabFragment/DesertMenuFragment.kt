@@ -6,13 +6,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.vo.vo_kiosk.Adapter.MenuAdapter
+import com.vo.vo_kiosk.DTO.MenuDTO
 import com.vo.vo_kiosk.R
 import com.vo.vo_kiosk.ViewModel.DesertMenuViewModel
 import com.vo.vo_kiosk.databinding.FragmentDesertBinding
 
-class DesertMenuFragment : Fragment() {
+class DesertMenuFragment : Fragment(), MenuAdapter.OnItemClickListener {
 
     private var _binding : FragmentDesertBinding? = null
     private val binding get() = _binding!!
@@ -28,7 +31,7 @@ class DesertMenuFragment : Fragment() {
         val desertRecyclerView = binding.desertRecyclerView
         desertRecyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
 
-        val menuAdapter = MenuAdapter()
+        val menuAdapter = MenuAdapter(this)
         desertRecyclerView.adapter = menuAdapter
 
         menuAdapter.submitList(null)
@@ -40,6 +43,10 @@ class DesertMenuFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    override fun onItemClick(menu: MenuDTO, itemView : View) {
+        findNavController().navigate(R.id.action_clickMenuFragment_to_orderDetailFragment)
     }
 
 }

@@ -2,6 +2,7 @@ package com.vo.vo_kiosk.View.TabFragment.OrderDetail
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +24,9 @@ class OrderDetailFragment : Fragment() {
     ): View {
         _binding = FragmentOrderDetailBinding.inflate(inflater, container, false)
 
+        val value = arguments?.getString("menu")
 
+        Log.d("budleValue", value.toString())
 
         return binding.root
     }

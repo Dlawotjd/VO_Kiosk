@@ -28,10 +28,10 @@ class SideMenuFragment : Fragment() {
         val recyclerView = binding.sideRecyclerView
         recyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
 
-        val menuAdapter = MenuAdapter()
-        recyclerView.adapter = menuAdapter
-
-        menuAdapter.submitList(null)
+//        val menuAdapter = MenuAdapter()
+//        recyclerView.adapter = menuAdapter
+//
+//        menuAdapter.submitList(null)
 
         return binding.root
     }
