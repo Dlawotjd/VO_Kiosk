@@ -1,40 +1,39 @@
 package com.vo.vo_kiosk
 
-import android.content.ContentValues
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.RadioButton
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.messaging.FirebaseMessaging
+import androidx.lifecycle.ViewModelProvider
+import com.vo.vo_kiosk.DB.DataBase
+import com.vo.vo_kiosk.NetWork.UserDao
+import com.vo.vo_kiosk.ViewModel.MainActivityViewModel
 import com.vo.vo_kiosk.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private var _binding : ActivityMainBinding? = null
     private val binding get() = _binding!!
-
+    private lateinit var viewModel : MainActivityViewModel
+    private lateinit var userDao: UserDao
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //파이어베이스 FCM 을 위한 디바이스 토큰 추출
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-            if (!task.isSuccessful) {
-                Log.w(ContentValues.TAG, "Fetching FCM registration token failed", task.exception)
-                return@OnCompleteListener
-            } else {
-                Log.d("token_error", "token_error")
-            }
+        userDao = DataBase.getDBInstance(this)!!.UserDao()
 
-            // 토큰 저장
-            val token = task.result.toString()
-            // Log
-            Log.d("토큰_값", token)
+        val tokenId = userDao.getUser()
 
-        })
+        if (tokenId != null){
+            Log.d("토큰값이 저장되어 있음", "토큰값이 저장되어 있음 ${tokenId}")
+        } else {
+            viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
+            viewModel.getTokenId()
+        }
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

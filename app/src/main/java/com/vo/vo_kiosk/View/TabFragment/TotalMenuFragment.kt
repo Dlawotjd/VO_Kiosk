@@ -31,30 +31,12 @@ class TotalMenuFragment : Fragment(), MenuAdapter.OnItemClickListener{
     ): View {
         _binding = FragmentTotalMenuBinding.inflate(inflater, container, false)
 
-        val menuList = listOf(
-            MenuDTO("menu1", R.drawable.hamburger, 10000),
-            MenuDTO("menu2", R.drawable.hamburger, 8000),
-            MenuDTO("menu3", R.drawable.hamburger, 12000),
-            MenuDTO("menu4", R.drawable.hamburger, 9000),
-            MenuDTO("menu5", R.drawable.hamburger, 15000),
-            MenuDTO("menu1", R.drawable.hamburger, 10000),
-            MenuDTO("menu2", R.drawable.hamburger, 8000),
-            MenuDTO("menu3", R.drawable.hamburger, 12000),
-            MenuDTO("menu4", R.drawable.hamburger, 9000),
-            MenuDTO("menu5", R.drawable.hamburger, 15000),
-            MenuDTO("menu1", R.drawable.hamburger, 10000),
-            MenuDTO("menu2", R.drawable.hamburger, 8000),
-            MenuDTO("menu3", R.drawable.hamburger, 12000),
-            MenuDTO("menu4", R.drawable.hamburger, 9000),
-            MenuDTO("menu5", R.drawable.hamburger, 15000),
-        )
-
         val totalRecyclerView = binding.totalRecyclerView
         totalRecyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
 
         val menuAdapter = MenuAdapter(this)
         totalRecyclerView.adapter = menuAdapter
-        menuAdapter.submitList(menuList)
+//        menuAdapter.submitList()
 
         return binding.root
     }
