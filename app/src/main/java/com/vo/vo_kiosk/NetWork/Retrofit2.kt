@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object Retrofit2 {
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl("http://oceanit.synology.me:3500/")
+        .baseUrl("http://oceanit.synology.me:3502/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
