@@ -41,10 +41,18 @@
         <action
             android:id="@+id/action_clickMenuFragment_to_orderDetailFragment"
             app:destination="@id/orderDetailFragment" />
+        <action
+            android:id="@+id/action_clickMenuFragment_to_shoppingFragment"
+            app:destination="@id/shoppingFragment" />
     </fragment>
     <fragment
         android:id="@+id/orderDetailFragment"
         android:name="com.vo.vo_kiosk.View.TabFragment.OrderDetail.OrderDetailFragment"
         android:label="fragment_order_detail"
         tools:layout="@layout/fragment_order_detail" />
+    <fragment
+        android:id="@+id/shoppingFragment"
+        android:name="com.vo.vo_kiosk.View.ShoppingFragment"
+        android:label="fragment_shoping"
+        tools:layout="@layout/fragment_shoping" />
 </navigation>

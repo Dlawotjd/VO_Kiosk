@@ -3,7 +3,6 @@ package com.vo.vo_kiosk.Adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.DiffUtil
@@ -38,8 +37,8 @@ class MenuAdapter(private val onItemClickListener: OnItemClickListener) : ListAd
 
     inner class MenuHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val menuImage : AppCompatImageView = itemView.findViewById(R.id.cmi_imageView)
-        private val menuText : TextView = itemView.findViewById(R.id.cmi_textView)
-        private val menuPrice : TextView = itemView.findViewById(R.id.cmi_price)
+        private val menuText : TextView = itemView.findViewById(R.id.od_menu)
+        private val menuPrice : TextView = itemView.findViewById(R.id.od_price)
 
         fun bind(menu : MenuDTO) {
             menuText.text = menu.mainMenu

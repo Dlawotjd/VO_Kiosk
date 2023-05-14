@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.vo.vo_kiosk.Adapter.TabLayoutAdapter
+import com.vo.vo_kiosk.R
 import com.vo.vo_kiosk.ViewModel.ClickMenuViewModel
 import com.vo.vo_kiosk.databinding.FragmentClickMenuBinding
 
@@ -25,6 +27,11 @@ class ClickMenuFragment : Fragment() {
         val tabLayout = binding.clickTabLayout
         val viewPager2 = binding.viewPager2
 
+        val floatingButton = binding.floatingButton
+        floatingButton.setOnClickListener {
+            findNavController().navigate(R.id.action_clickMenuFragment_to_shoppingFragment)
+        }
+
         viewPager2.apply {
             adapter = TabLayoutAdapter(this@ClickMenuFragment)
         }
@@ -33,13 +40,13 @@ class ClickMenuFragment : Fragment() {
 
             when(position) {
                 0 -> {
-                    tab.text = "추천 메뉴"
+                    tab.text = "햄버거세트"
                 }
                 1 -> {
                     tab.text = "햄버거"
                 }
                 2 -> {
-                    tab.text = "사이드"
+                    tab.text = "음료"
                 }
                 3 -> {
                     tab.text = "디저트"

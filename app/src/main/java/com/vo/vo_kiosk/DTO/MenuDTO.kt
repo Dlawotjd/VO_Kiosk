@@ -21,3 +21,20 @@ data class MenuDTO(
     val mainImg : String,
     
 )
+
+data class Menu(
+    val inform: String
+)
+
+data class MenuOption(
+    val menu_option_id: Int,
+    val category: String,
+    val name: String,
+    val price: Int
+)
+
+data class MenuData(
+    val menu: List<Menu>,
+    val dessert_option: List<MenuOption>,
+    val drink_option: List<MenuOption>
+)

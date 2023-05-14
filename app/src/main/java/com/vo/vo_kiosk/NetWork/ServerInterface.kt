@@ -1,5 +1,6 @@
 package com.vo.vo_kiosk.NetWork
 
+import com.vo.vo_kiosk.DTO.MenuData
 import com.vo.vo_kiosk.DTO.MenuResponse
 import com.vo.vo_kiosk.DTO.TokenDTO
 import com.vo.vo_kiosk.DTO.TokenResponse
@@ -23,5 +24,10 @@ interface ServerInterface {
         @Query("category") category : String
     ) : Call<MenuResponse>
 
+//  세트 메뉴 값 호출
+    @GET("menuClick")
+    fun menuClick(
+        @Query("menu_id") menu_id : String
+    ) : Call<MenuData>
 }
 
