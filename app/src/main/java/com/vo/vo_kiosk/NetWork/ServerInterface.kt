@@ -18,7 +18,7 @@ interface ServerInterface {
     ) : Call<TokenResponse>
 
 //  카테고리 API
-    @GET("/category")
+    @GET("category")
     fun cateGory(
         @Query("category") category : String
     ) : Call<MenuResponse>

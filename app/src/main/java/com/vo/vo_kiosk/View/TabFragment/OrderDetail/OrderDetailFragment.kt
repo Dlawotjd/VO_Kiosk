@@ -20,8 +20,6 @@ class OrderDetailFragment : Fragment() {
     private val binding get() = _binding!!
     private var sideRadioGroup : RadioGroup? = null
 
-    private lateinit var viewModel: OrderDetailViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -43,7 +41,6 @@ class OrderDetailFragment : Fragment() {
             binding.sideRadioGroup.clearCheck()
             binding.drinkRadioGroup.clearCheck()
         }
-
 
         addRadioButton(4, binding.sideRadioGroup)
         addRadioButton(4, binding.drinkRadioGroup)

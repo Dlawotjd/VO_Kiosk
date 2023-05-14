@@ -43,12 +43,11 @@ class MenuAdapter(private val onItemClickListener: OnItemClickListener) : ListAd
 
         fun bind(menu : MenuDTO) {
             menuText.text = menu.mainMenu
-            menuPrice.text = menu.mainPrice.toString()
-            menu.mainImg.let {
-                Glide.with(itemView)
-                    .load(it)
-                    .into(menuImage)
-            }
+            menuPrice.text = "${menu.mainPrice}원"
+            Glide.with(itemView)
+                .load("http://oceanit.synology.me:3502/img/${menu.mainImg}")
+                .into(menuImage)
+
         }
     }
 

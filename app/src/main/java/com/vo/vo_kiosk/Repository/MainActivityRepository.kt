@@ -23,6 +23,7 @@ class MainActivityRepository(application : Application) {
     val tokenId : MutableLiveData<TokenResponse?> = _tokenId
     val dB = DataBase.getDBInstance(application)
 
+//  토큰 전송 API
     fun tokenSend(token : String) {
 
         call!!.tokenSend(TokenDTO(token)).enqueue(object : Callback<TokenResponse>{
@@ -35,7 +36,6 @@ class MainActivityRepository(application : Application) {
                     Log.d("tokenId", "tokenId load Fail")
                 }
             }
-
             override fun onFailure(call: Call<TokenResponse>, t: Throwable) {
                 Log.d("tokenId_Fail", "${t.message}")
             }

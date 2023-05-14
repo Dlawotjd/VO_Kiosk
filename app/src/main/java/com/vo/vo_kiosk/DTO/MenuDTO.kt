@@ -3,7 +3,8 @@ package com.vo.vo_kiosk.DTO
 import com.google.gson.annotations.SerializedName
 
 data class MenuResponse(
-    val result : MenuDTO
+    @SerializedName("result")
+    val result : ArrayList<MenuDTO>
 )
 data class MenuDTO(
 
@@ -16,7 +17,7 @@ data class MenuDTO(
     @SerializedName("price")
     val mainPrice : Int,
 
-    @SerializedName("img")
+    @SerializedName("menu_url")
     val mainImg : String,
     
 )

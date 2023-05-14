@@ -2,28 +2,25 @@ package com.vo.vo_kiosk.View.TabFragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.vo.vo_kiosk.Adapter.MenuAdapter
 import com.vo.vo_kiosk.DTO.MenuDTO
 import com.vo.vo_kiosk.R
-import com.vo.vo_kiosk.ViewModel.TotalMenuViewModel
-import com.vo.vo_kiosk.databinding.BottomSheetBinding
+import com.vo.vo_kiosk.ViewModel.OrderDetailViewModel
 import com.vo.vo_kiosk.databinding.FragmentTotalMenuBinding
 
 class TotalMenuFragment : Fragment(), MenuAdapter.OnItemClickListener{
 
     private var _binding : FragmentTotalMenuBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: TotalMenuViewModel
-
+    private lateinit var viewModel : OrderDetailViewModel
     @SuppressLint("RestrictedApi")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,12 +28,18 @@ class TotalMenuFragment : Fragment(), MenuAdapter.OnItemClickListener{
     ): View {
         _binding = FragmentTotalMenuBinding.inflate(inflater, container, false)
 
+        viewModel = ViewModelProvider(this)[OrderDetailViewModel::class.java]
+
         val totalRecyclerView = binding.totalRecyclerView
         totalRecyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
 
         val menuAdapter = MenuAdapter(this)
         totalRecyclerView.adapter = menuAdapter
-//        menuAdapter.submitList()
+
+        viewModel.getMenu("set")
+        viewModel.allMenu.observe(viewLifecycleOwner, Observer { menuResponse ->
+            menuAdapter.submitList(menuResponse.result)
+        })
 
         return binding.root
     }
