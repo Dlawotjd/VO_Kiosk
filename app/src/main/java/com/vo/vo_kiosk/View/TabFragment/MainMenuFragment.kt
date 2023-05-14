@@ -55,6 +55,12 @@ class MainMenuFragment : Fragment(), MenuAdapter.OnItemClickListener {
     }
 
     override fun onItemClick(menu: MenuDTO, itemView : View) {
-        findNavController().navigate(R.id.action_clickMenuFragment_to_orderDetailFragment)
+        val bundle = Bundle()
+
+        bundle.putString("menuId", menu.mainId.toString())
+        bundle.putString("menuName", menu.mainMenu)
+        bundle.putString("menuPrice", menu.mainPrice.toString())
+        bundle.putString("menuImg", menu.mainImg)
+        findNavController().navigate(R.id.action_clickMenuFragment_to_orderDetailOtherFragment, bundle)
     }
 }

@@ -44,6 +44,9 @@
         <action
             android:id="@+id/action_clickMenuFragment_to_shoppingFragment"
             app:destination="@id/shoppingFragment" />
+        <action
+            android:id="@+id/action_clickMenuFragment_to_orderDetailOtherFragment"
+            app:destination="@id/orderDetailOtherFragment" />
     </fragment>
     <fragment
         android:id="@+id/orderDetailFragment"
@@ -55,4 +58,8 @@
         android:name="com.vo.vo_kiosk.View.ShoppingFragment"
         android:label="fragment_shoping"
         tools:layout="@layout/fragment_shoping" />
+    <fragment
+        android:id="@+id/orderDetailOtherFragment"
+        android:name="com.vo.vo_kiosk.View.TabFragment.OrderDetail.OrderDetailOtherFragment"
+        android:label="OrderDetailOtherFragment" />
 </navigation>

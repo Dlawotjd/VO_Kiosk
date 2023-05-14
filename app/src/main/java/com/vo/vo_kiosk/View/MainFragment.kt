@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.vo.vo_kiosk.Adapter.QRAdapter
-import com.vo.vo_kiosk.ViewModel.ChoiceMenuViewModel
 import com.vo.vo_kiosk.R
 import com.vo.vo_kiosk.ViewModel.ShareQRViewModel
 import com.vo.vo_kiosk.databinding.FragmentMainBinding
@@ -18,7 +17,6 @@ class MainFragment : Fragment() {
     private var _binding : FragmentMainBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: ChoiceMenuViewModel
     private lateinit var shareQRViewModel : ShareQRViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,7 +24,6 @@ class MainFragment : Fragment() {
     ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
 
-        viewModel = ViewModelProvider(this)[ChoiceMenuViewModel::class.java]
         shareQRViewModel = ViewModelProvider(requireActivity())[ShareQRViewModel::class.java]
 
         binding.clickConstrain.visibility = View.VISIBLE
@@ -45,7 +42,6 @@ class MainFragment : Fragment() {
         }
         return binding.root
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

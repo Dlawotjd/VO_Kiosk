@@ -9,14 +9,12 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.vo.vo_kiosk.Adapter.TabLayoutAdapter
 import com.vo.vo_kiosk.R
-import com.vo.vo_kiosk.ViewModel.ClickMenuViewModel
 import com.vo.vo_kiosk.databinding.FragmentClickMenuBinding
 
 class ClickMenuFragment : Fragment() {
 
     private var _binding : FragmentClickMenuBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: ClickMenuViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
