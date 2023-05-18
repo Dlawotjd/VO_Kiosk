@@ -11,7 +11,7 @@
         android:label="fragment_guide_line_fragement"
         tools:layout="@layout/fragment_facedetect" >
         <action
-            android:id="@+id/action_facedetectFragment_to_choiceMenuFragment"
+            android:id="@+id/action_facedetectFragment_to_Main_Fragment"
             app:destination="@id/Main_Fragment" />
     </fragment>
 
@@ -33,6 +33,7 @@
         android:name="com.vo.vo_kiosk.View.VoiceOrderFragment"
         android:label="fragment_menu_orlder"
         tools:layout="@layout/fragment_menu_order" />
+
     <fragment
         android:id="@+id/clickMenuFragment"
         android:name="com.vo.vo_kiosk.View.ClickMenuFragment"
@@ -48,6 +49,7 @@
             android:id="@+id/action_clickMenuFragment_to_orderDetailOtherFragment"
             app:destination="@id/orderDetailOtherFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/orderDetailFragment"
         android:name="com.vo.vo_kiosk.View.TabFragment.OrderDetail.OrderDetailFragment"
@@ -62,4 +64,5 @@
         android:id="@+id/orderDetailOtherFragment"
         android:name="com.vo.vo_kiosk.View.TabFragment.OrderDetail.OrderDetailOtherFragment"
         android:label="OrderDetailOtherFragment" />
+
 </navigation>

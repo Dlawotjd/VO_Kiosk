@@ -1,9 +1,7 @@
 package com.vo.vo_kiosk.NetWork
 
-import com.vo.vo_kiosk.DTO.MenuData
-import com.vo.vo_kiosk.DTO.MenuResponse
-import com.vo.vo_kiosk.DTO.TokenDTO
-import com.vo.vo_kiosk.DTO.TokenResponse
+import com.vo.vo_kiosk.DTO.*
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -29,5 +27,11 @@ interface ServerInterface {
     fun menuClick(
         @Query("menu_id") menu_id : String
     ) : Call<MenuData>
+
+//  나이 확인 모델 API
+    @POST("classify")
+    fun faceCheck(
+        @Body folder_path: FolderPath
+    ):Call<FaceAge>
 }
 

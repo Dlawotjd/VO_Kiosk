@@ -1,8 +1,8 @@
 package com.vo.vo_kiosk.View
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +11,7 @@ import com.vo.vo_kiosk.Adapter.QRAdapter
 import com.vo.vo_kiosk.R
 import com.vo.vo_kiosk.ViewModel.ShareQRViewModel
 import com.vo.vo_kiosk.databinding.FragmentMainBinding
+
 
 class MainFragment : Fragment() {
 
@@ -24,10 +25,14 @@ class MainFragment : Fragment() {
     ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
 
+        val faceAge = arguments?.getString("faceAge")
         shareQRViewModel = ViewModelProvider(requireActivity())[ShareQRViewModel::class.java]
 
-        binding.clickConstrain.visibility = View.VISIBLE
-//        binding.voiceCardView.visibility = View.VISIBLE
+        if (faceAge!!.toInt() == 0) {
+            binding.clickConstrain.visibility = View.VISIBLE
+        } else {
+            binding.voiceCardView.visibility = View.VISIBLE
+        }
 
         binding.clickCardView.setOnClickListener {
             findNavController().navigate(R.id.action_Main_Fragment_to_clickMenuFragment)
@@ -38,10 +43,11 @@ class MainFragment : Fragment() {
 
         shareQRViewModel.qrData.observe(viewLifecycleOwner) { dataList ->
             val qrPagerAdapter = QRAdapter(dataList)
-            binding.bottomSheet.qrViewPager.adapter = qrPagerAdapter
+            binding.mainBottomSheet.qrViewPager.adapter = qrPagerAdapter
         }
         return binding.root
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

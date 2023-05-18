@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.vo.vo_kiosk.ViewModel.MainVoiceViewModel
 import com.vo.vo_kiosk.ViewModel.ShareQRViewModel
+import com.vo.vo_kiosk.databinding.FragmentMainBinding
 import com.vo.vo_kiosk.databinding.FragmentMainVoiceBinding
 import kotlinx.coroutines.launch
 

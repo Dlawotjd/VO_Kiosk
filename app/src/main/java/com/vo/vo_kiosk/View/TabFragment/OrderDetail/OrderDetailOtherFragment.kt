@@ -1,6 +1,5 @@
 package com.vo.vo_kiosk.View.TabFragment.OrderDetail
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,20 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
-import com.vo.vo_kiosk.DTO.MenuData
-import com.vo.vo_kiosk.NetWork.Retrofit2
-import com.vo.vo_kiosk.R
 import com.vo.vo_kiosk.ViewModel.OrderDetailOtherViewModel
-import com.vo.vo_kiosk.databinding.FragmentOrderDetailBinding
 import com.vo.vo_kiosk.databinding.FragmentOrderDetailOtherBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class OrderDetailOtherFragment : Fragment() {
 
     private var _binding : FragmentOrderDetailOtherBinding? = null
     private val binding get() = _binding!!
+
     private lateinit var viewModel: OrderDetailOtherViewModel
 
     override fun onCreateView(
@@ -44,14 +37,15 @@ class OrderDetailOtherFragment : Fragment() {
             .load("http://oceanit.synology.me:3502/img/${menuImg}")
             .into(binding.odoImageView)
 
+//      장바구니에 들어가는 코드
+        binding.odoButton.setOnClickListener {
+
+        }
 
         return binding.root
-
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 }
