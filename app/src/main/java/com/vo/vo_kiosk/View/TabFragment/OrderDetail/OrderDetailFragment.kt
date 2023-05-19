@@ -11,10 +11,15 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.vo.vo_kiosk.DTO.MenuData
 import com.vo.vo_kiosk.DTO.MenuOption
+import com.vo.vo_kiosk.DTO.OrderList
 import com.vo.vo_kiosk.NetWork.Retrofit2
+import com.vo.vo_kiosk.R
+import com.vo.vo_kiosk.ViewModel.OrderMenuViewModel
 import com.vo.vo_kiosk.databinding.FragmentOrderDetailBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -29,7 +34,12 @@ class OrderDetailFragment : Fragment() {
     private var basePrice: Int = 0
     private var baseDrinkPrice: Int = 0
     private var baseDessertPrice: Int = 0
+    private var isDrinkSelected = false
+    private var isDessertSelected = false
+    private var drinkRadioName: String? = null
+    private var dessertRadioName: String? = null
 
+    private lateinit var orderMenuViewModel : OrderMenuViewModel
 
     val call by lazy { Retrofit2.getInstance() }
 
@@ -38,6 +48,8 @@ class OrderDetailFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentOrderDetailBinding.inflate(inflater, container, false)
+
+        orderMenuViewModel = ViewModelProvider(requireActivity())[OrderMenuViewModel::class.java]
 
         val menuId = arguments?.getString("menuId")
         val menuName = arguments?.getString("menuName")
@@ -61,27 +73,49 @@ class OrderDetailFragment : Fragment() {
 
 //      음료 라디오 버튼
         binding.drinkRadioGroup.setOnCheckedChangeListener { group, checkedId ->
-            val price = group.findViewById<RadioButton>(checkedId)?.tag as? Int ?: 0
-            baseDrinkPrice = price
+            val price = group.findViewById<RadioButton>(checkedId)
+            baseDrinkPrice = price?.tag as? Int ?: 0
+            drinkRadioName = price?.text?.toString()
             updateTotalPrice()
         }
 //      디저트 라디오 버튼
         binding.dessertRadioGroup.setOnCheckedChangeListener { group, checkedId ->
-            val price = group.findViewById<RadioButton>(checkedId)?.tag as? Int ?: 0
-            baseDessertPrice = price
+            val price = group.findViewById<RadioButton>(checkedId)
+            baseDessertPrice = price?.tag as? Int ?: 0
+            dessertRadioName = price?.text?.toString()
             updateTotalPrice()
         }
-
+//      주문 완료시 장바구니 데이터 전송
         binding.detailFinButton.setOnClickListener {
+            val totalPrice = binding.detailTotalPrice.text.toString().replace("원","").toInt()
+            val drinkRadioId = binding.drinkRadioGroup.checkedRadioButtonId
+            val dessertRadioId = binding.dessertRadioGroup.checkedRadioButtonId
+
+            if (!isDrinkSelected || !isDessertSelected) {
+                Toast.makeText(requireContext(), "음료와 디저트를 선택해주세요.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val newOrder = OrderList(menuId.toString(), totalPrice, menuName.toString(), menuImg.toString(), drinkRadioId, dessertRadioId, drinkRadioName.toString(), dessertRadioName.toString())
+            orderMenuViewModel.addOrder(newOrder)
+
+            findNavController().navigate(R.id.action_orderDetailFragment_to_clickMenuFragment)
 
         }
 
         return binding.root
     }
 
+//  총합 가격 데이터
     private fun updateTotalPrice() {
         val total = basePrice + baseDrinkPrice + baseDessertPrice
         totalPrice?.text = "${total}원"
+        checkSelection()
+    }
+//  라디오 버튼 클릭 체크 확인
+    private fun checkSelection() {
+        isDrinkSelected = binding.drinkRadioGroup.checkedRadioButtonId != -1
+        isDessertSelected = binding.dessertRadioGroup.checkedRadioButtonId != -1
     }
 
 //  음료 메뉴 디저트 메뉴 버튼 동적 생성
@@ -96,6 +130,7 @@ class OrderDetailFragment : Fragment() {
         }
     }
 
+//  메뉴 정보 호출
     fun menuAPI(menuId : String){
 
         call!!.menuClick(menuId).enqueue(object : Callback<MenuData>{
@@ -124,9 +159,4 @@ class OrderDetailFragment : Fragment() {
 
         })
     }
-
-    fun sendOlderAPI(){
-
-    }
-
 }

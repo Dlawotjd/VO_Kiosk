@@ -54,7 +54,12 @@
         android:id="@+id/orderDetailFragment"
         android:name="com.vo.vo_kiosk.View.TabFragment.OrderDetail.OrderDetailFragment"
         android:label="fragment_order_detail"
-        tools:layout="@layout/fragment_order_detail" />
+        tools:layout="@layout/fragment_order_detail" >
+        <action
+            android:id="@+id/action_orderDetailFragment_to_clickMenuFragment"
+            app:destination="@id/clickMenuFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/shoppingFragment"
         android:name="com.vo.vo_kiosk.View.ShoppingFragment"
@@ -63,6 +68,10 @@
     <fragment
         android:id="@+id/orderDetailOtherFragment"
         android:name="com.vo.vo_kiosk.View.TabFragment.OrderDetail.OrderDetailOtherFragment"
-        android:label="OrderDetailOtherFragment" />
+        android:label="OrderDetailOtherFragment" >
+        <action
+            android:id="@+id/action_orderDetailOtherFragment_to_clickMenuFragment"
+            app:destination="@id/clickMenuFragment" />
+    </fragment>
 
 </navigation>

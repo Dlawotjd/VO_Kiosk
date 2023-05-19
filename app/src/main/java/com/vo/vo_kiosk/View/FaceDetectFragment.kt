@@ -79,7 +79,8 @@ class FaceDetectFragment : Fragment(), ImageCapture.OnImageSavedCallback {
         binding.faceText.text = "전명 카메라을 봐주세요!!"
 
         binding.faceButton.setOnClickListener {
-            takePicture()
+            findNavController().navigate(R.id.action_facedetectFragment_to_Main_Fragment)
+//            takePicture()
         }
 
         return binding.root
@@ -288,7 +289,6 @@ class FaceDetectFragment : Fragment(), ImageCapture.OnImageSavedCallback {
             override fun onResponse(call: Call<FaceAge>, response: Response<FaceAge>) {
 
                 if (response.isSuccessful){
-//                    Log.d("face_Age", response.body()!!.preictions)
                     val faceAgeBundle = Bundle()
                     faceAgeBundle.putString("faceAge", response.body()!!.preictions)
                     findNavController().navigate(R.id.action_facedetectFragment_to_Main_Fragment, faceAgeBundle)

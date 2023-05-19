@@ -89,6 +89,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="* 무조건 한개를 선택해주세요"
+                android:textSize="12dp"
+                android:layout_marginStart="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/detail_side_textView"
+                app:layout_constraintStart_toEndOf="@+id/detail_side_textView"
+                app:layout_constraintTop_toTopOf="@+id/detail_side_textView" />
+
             <RadioGroup
                 android:id="@+id/dessert_RadioGroup"
                 android:layout_width="match_parent"
@@ -111,6 +121,16 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dessert_RadioGroup" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="* 무조건 한개를 선택해주세요"
+                android:textSize="12dp"
+                android:layout_marginStart="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/detail_drink_textView"
+                app:layout_constraintStart_toEndOf="@+id/detail_drink_textView"
+                app:layout_constraintTop_toTopOf="@+id/detail_drink_textView" />
 
 
             <RadioGroup

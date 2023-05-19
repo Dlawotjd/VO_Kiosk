@@ -28,6 +28,12 @@ interface ServerInterface {
         @Query("menu_id") menu_id : String
     ) : Call<MenuData>
 
+//  장바구니 데이터 서버 전송
+    @POST("cart")
+    fun sendMenu(
+        @Body order : OrderDTO
+    ) : Call<OrderDTOResult>
+
 //  나이 확인 모델 API
     @POST("classify")
     fun faceCheck(
