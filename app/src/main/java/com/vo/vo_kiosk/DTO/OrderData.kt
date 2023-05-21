@@ -32,7 +32,7 @@ data class MenuList(
 )
 
 data class OrderDTOResult(
-    @SerializedName("result")
-    val result : String
+    @SerializedName("order_number_id")
+    val order_number_id : Int
 )
 

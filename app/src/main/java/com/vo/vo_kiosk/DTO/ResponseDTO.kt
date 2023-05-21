@@ -1,4 +1,4 @@
-package com.vo.vo_kiosk.NetWork
+package com.vo.vo_kiosk.DTO
 
 import com.google.gson.annotations.SerializedName
 

@@ -47,7 +47,7 @@ class OrderDetailOtherFragment : Fragment() {
         binding.odoButton.setOnClickListener {
             val newOrder = OrderList(menuId.toString(), menuPrice!!.toInt(), menuName.toString(), menuImg.toString(), null, null, null, null)
             orderMenuViewModel.addOrder(newOrder)
-            findNavController().navigate(R.id.action_orderDetailOtherFragment_to_clickMenuFragment)
+            findNavController().popBackStack()
         }
 
         return binding.root

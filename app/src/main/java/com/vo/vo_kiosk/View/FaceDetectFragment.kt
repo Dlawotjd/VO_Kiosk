@@ -31,8 +31,8 @@ import com.google.mlkit.vision.face.FaceDetectorOptions
 import com.vo.vo_kiosk.DTO.FaceAge
 import com.vo.vo_kiosk.DTO.FolderPath
 import com.vo.vo_kiosk.NetWork.FaceDetectAPI
-import com.vo.vo_kiosk.NetWork.ResponseDTO
-import com.vo.vo_kiosk.NetWork.RetrofitClient
+import com.vo.vo_kiosk.DTO.ResponseDTO
+import com.vo.vo_kiosk.NetWork.Retrofit2
 import com.vo.vo_kiosk.R
 import com.vo.vo_kiosk.databinding.FragmentFacedetectBinding
 import okhttp3.MediaType
@@ -55,7 +55,7 @@ class FaceDetectFragment : Fragment(), ImageCapture.OnImageSavedCallback {
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var imageCapture: ImageCapture
 
-    val call by lazy { RetrofitClient.getInstance() }
+    val call by lazy { Retrofit2.getInstance() }
     val call2 by lazy { FaceDetectAPI.getInstance() }
 
     private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
@@ -76,7 +76,7 @@ class FaceDetectFragment : Fragment(), ImageCapture.OnImageSavedCallback {
 
         checkCameraPermission()
 
-        binding.faceText.text = "전명 카메라을 봐주세요!!"
+        binding.faceText.text = "전방 카메라을 봐주세요!!"
 
         binding.faceButton.setOnClickListener {
             findNavController().navigate(R.id.action_facedetectFragment_to_Main_Fragment)
@@ -143,9 +143,12 @@ class FaceDetectFragment : Fragment(), ImageCapture.OnImageSavedCallback {
 
                     override fun onError(exception: ImageCaptureException) {
                         Handler(Looper.getMainLooper()).post {
-                            binding.faceText.text = "정면을 보고 다시 눌러주세요"
+                            _binding?.let {
+                                it.faceText.text = "정면을 보고 다시 눌러주세요"
+                            }
                         }
                     }
+
                 })
         }, 500) // 사용자 인식 얼굴 위치에 조절을 위한 1.5초 후에 실행
     }
@@ -179,13 +182,7 @@ class FaceDetectFragment : Fragment(), ImageCapture.OnImageSavedCallback {
 
             .addOnFailureListener { e ->
                 // 처리 중 오류가 발생했을 때의 동작을 구현합니다.
-                Handler(Looper.getMainLooper()).post {
-                    Toast.makeText(
-                        requireContext(),
-                        "얼굴 인식 실패: ${e.message}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+
             }
     }
 

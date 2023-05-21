@@ -1,12 +1,11 @@
 package com.vo.vo_kiosk.NetWork
 
+import com.vo.vo_kiosk.DTO.ResponseDTO
 import com.vo.vo_kiosk.DTO.*
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface ServerInterface {
 
@@ -39,5 +38,13 @@ interface ServerInterface {
     fun faceCheck(
         @Body folder_path: FolderPath
     ):Call<FaceAge>
+
+//  이미지 업로드
+    @Multipart
+    @POST("upload")
+    fun uploadImage(
+        @Part image: MultipartBody.Part?,
+        @Part("description") description: RequestBody?,
+    ): Call<ResponseDTO>
 }
 

@@ -7,13 +7,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.vo.vo_kiosk.Adapter.ShoppingAdapter
-import com.vo.vo_kiosk.R
+import com.vo.vo_kiosk.DB.DataBase
+import com.vo.vo_kiosk.DTO.MenuList
+import com.vo.vo_kiosk.DTO.OrderDTO
+import com.vo.vo_kiosk.NetWork.UserDao
 import com.vo.vo_kiosk.ViewModel.OrderMenuViewModel
-import com.vo.vo_kiosk.ViewModel.ShopingViewModel
+import com.vo.vo_kiosk.ViewModel.ShareQRViewModel
 import com.vo.vo_kiosk.databinding.FragmentShopingBinding
 
 class ShoppingFragment : Fragment() {
@@ -22,8 +25,11 @@ class ShoppingFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var orderMenuViewModel: OrderMenuViewModel
+    private lateinit var shareQRViewModel: ShareQRViewModel
+
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter : ShoppingAdapter
+    private lateinit var userDao: UserDao
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +38,11 @@ class ShoppingFragment : Fragment() {
         _binding = FragmentShopingBinding.inflate(inflater, container, false)
 
         orderMenuViewModel = ViewModelProvider(requireActivity())[OrderMenuViewModel::class.java]
+        shareQRViewModel = ViewModelProvider(requireActivity())[ShareQRViewModel::class.java]
+
+        userDao = DataBase.getDBInstance(requireContext())!!.UserDao()
+
+        val tokenId = userDao.getUser()
 
         adapter = ShoppingAdapter()
         adapter.setViewModel(orderMenuViewModel)
@@ -54,7 +65,29 @@ class ShoppingFragment : Fragment() {
 
         binding.shoppingFinish.setOnClickListener {
 
+            val orderList = orderMenuViewModel.orders.value
+            if (orderList.isNullOrEmpty()) {
+                return@setOnClickListener
+            }
+            val menuList = orderList.map { order ->
+                MenuList(
+                    menu_id = order.menuId.toInt(),
+                    option_id1 = order.dessertRadioId,
+                    option_id2 = order.drinkRadioId
+                )
+            }
+            val orderDTO = OrderDTO(
+                user_id = tokenId.userInt,
+                total_price = binding.shopPrice.text.toString().replace("원", "").toInt(),
+                menu = menuList
+            )
+//          장바구니 내에 있는 데이터 서버로 전송
+            orderMenuViewModel.sendOrder(orderDTO)
+
+            findNavController().popBackStack()
+
         }
+
 
         return binding.root
     }

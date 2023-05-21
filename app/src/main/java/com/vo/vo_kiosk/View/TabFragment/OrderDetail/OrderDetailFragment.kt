@@ -99,7 +99,7 @@ class OrderDetailFragment : Fragment() {
             val newOrder = OrderList(menuId.toString(), totalPrice, menuName.toString(), menuImg.toString(), drinkRadioId, dessertRadioId, drinkRadioName.toString(), dessertRadioName.toString())
             orderMenuViewModel.addOrder(newOrder)
 
-            findNavController().navigate(R.id.action_orderDetailFragment_to_clickMenuFragment)
+            findNavController().popBackStack()
 
         }
 

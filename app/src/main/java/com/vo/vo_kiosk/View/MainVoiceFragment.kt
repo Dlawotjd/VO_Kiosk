@@ -6,14 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
-import com.vo.vo_kiosk.ViewModel.MainVoiceViewModel
 import com.vo.vo_kiosk.ViewModel.ShareQRViewModel
-import com.vo.vo_kiosk.databinding.FragmentMainBinding
 import com.vo.vo_kiosk.databinding.FragmentMainVoiceBinding
-import kotlinx.coroutines.launch
 
 class MainVoiceFragment : Fragment() {
 
@@ -35,7 +29,7 @@ class MainVoiceFragment : Fragment() {
         sharedViewModel = ViewModelProvider(requireActivity())[ShareQRViewModel::class.java]
 
         binding.button.setOnClickListener {
-            onButtonClicked()
+//            onButtonClicked()
         }
 
         return binding.root
@@ -44,14 +38,14 @@ class MainVoiceFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-    private fun onButtonClicked() {
-        val newDataList = generateNewDataList()
-        sharedViewModel.setQRData(newDataList)
-    }
-
-    // QR 데이터 목록을 생성하는 코드 (샘플 코드)
-    private fun generateNewDataList(): List<String> {
-        // QR 데이터 목록을 생성하는 로직을 여기에 구현하세요.
-        return listOf("data1", "data2", "data3")
-    }
+//    private fun onButtonClicked() {
+//        val newDataList = generateNewDataList()
+//        sharedViewModel.setQRData(newDataList)
+//    }
+//
+//    // QR 데이터 목록을 생성하는 코드 (샘플 코드)
+//    private fun generateNewDataList(): List<String> {
+//        // QR 데이터 목록을 생성하는 로직을 여기에 구현하세요.
+//        return listOf("data1", "data2", "data3")
+//    }
 }
