@@ -12,6 +12,10 @@
         tools:layout="@layout/fragment_facedetect" >
         <action
             android:id="@+id/action_facedetectFragment_to_Main_Fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
             app:destination="@id/Main_Fragment" />
     </fragment>
 
@@ -22,9 +26,17 @@
         tools:layout="@layout/fragment_main" >
         <action
             android:id="@+id/action_Main_Fragment_to_clickMenuFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
             app:destination="@id/clickMenuFragment" />
         <action
             android:id="@+id/action_Main_Fragment_to_menuOrderFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
             app:destination="@id/menuOrderFragment" />
     </fragment>
 
@@ -41,12 +53,24 @@
         tools:layout="@layout/fragment_click_menu" >
         <action
             android:id="@+id/action_clickMenuFragment_to_orderDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
             app:destination="@id/orderDetailFragment" />
         <action
             android:id="@+id/action_clickMenuFragment_to_shoppingFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
             app:destination="@id/shoppingFragment" />
         <action
             android:id="@+id/action_clickMenuFragment_to_orderDetailOtherFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
             app:destination="@id/orderDetailOtherFragment" />
     </fragment>
 
@@ -57,6 +81,10 @@
         tools:layout="@layout/fragment_order_detail" >
         <action
             android:id="@+id/action_orderDetailFragment_to_clickMenuFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
             app:destination="@id/clickMenuFragment" />
     </fragment>
 
@@ -71,6 +99,10 @@
         android:label="OrderDetailOtherFragment" >
         <action
             android:id="@+id/action_orderDetailOtherFragment_to_clickMenuFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
             app:destination="@id/clickMenuFragment" />
     </fragment>
 

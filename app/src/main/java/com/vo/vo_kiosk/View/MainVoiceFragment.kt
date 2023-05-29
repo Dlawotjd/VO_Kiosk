@@ -14,7 +14,6 @@ class MainVoiceFragment : Fragment() {
     private var _binding : FragmentMainVoiceBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: MainVoiceViewModel
     private lateinit var sharedViewModel: ShareQRViewModel
 
 
@@ -24,7 +23,6 @@ class MainVoiceFragment : Fragment() {
     ): View {
         _binding = FragmentMainVoiceBinding.inflate(inflater, container, false)
 
-        viewModel = ViewModelProvider(this)[MainVoiceViewModel::class.java]
 //        qr 데이터 생성 후 Fragment 간 공유를 위한 ViewModel
         sharedViewModel = ViewModelProvider(requireActivity())[ShareQRViewModel::class.java]
 

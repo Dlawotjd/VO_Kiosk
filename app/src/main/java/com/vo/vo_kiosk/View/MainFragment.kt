@@ -30,11 +30,11 @@ class MainFragment : Fragment() {
         val faceAge = arguments?.getString("faceAge")
 
 
-//        if (faceAge!!.toInt() == 0) {
+        if (faceAge!!.toInt() == 0) {
             binding.clickConstrain.visibility = View.VISIBLE
-//        } else {
-//            binding.voiceCardView.visibility = View.VISIBLE
-//        }
+        } else {
+            binding.voiceConstrain.visibility = View.VISIBLE
+        }
 
         binding.clickCardView.setOnClickListener {
             findNavController().navigate(R.id.action_Main_Fragment_to_clickMenuFragment)

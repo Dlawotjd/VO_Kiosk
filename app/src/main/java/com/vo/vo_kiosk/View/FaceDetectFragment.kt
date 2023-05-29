@@ -1,6 +1,8 @@
 package com.vo.vo_kiosk.View
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -11,19 +13,23 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
 import android.os.Looper
+import android.provider.OpenableColumns
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.loader.content.CursorLoader
 import androidx.navigation.fragment.findNavController
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.face.FaceDetection
@@ -36,11 +42,14 @@ import com.vo.vo_kiosk.NetWork.Retrofit2
 import com.vo.vo_kiosk.R
 import com.vo.vo_kiosk.databinding.FragmentFacedetectBinding
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
@@ -54,6 +63,7 @@ class FaceDetectFragment : Fragment(), ImageCapture.OnImageSavedCallback {
     private val binding get() = _binding!!
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var imageCapture: ImageCapture
+    private lateinit var getContent: ActivityResultLauncher<String>
 
     val call by lazy { Retrofit2.getInstance() }
     val call2 by lazy { FaceDetectAPI.getInstance() }
@@ -79,13 +89,102 @@ class FaceDetectFragment : Fragment(), ImageCapture.OnImageSavedCallback {
         binding.faceText.text = "전방 카메라을 봐주세요!!"
 
         binding.faceButton.setOnClickListener {
-            findNavController().navigate(R.id.action_facedetectFragment_to_Main_Fragment)
-//            takePicture()
+            takePicture()
         }
+
+        binding.imageButton.setOnClickListener {
+            getContent.launch("image/*")
+        }
+
+        getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { result ->
+            if (result != null) {
+                // 이미지 전송 시작
+                Log.d("imageClickPath", result.toString())
+                sendImageToServer2(result)
+            } else {
+                Toast.makeText(requireContext(), "Cannot get input stream from the selected image", Toast.LENGTH_LONG).show()
+            }
+        }
+
+
 
         return binding.root
     }
+//  테스트를 위한 임시 함수
+    private fun sendImageToServer2(uri: Uri) {
 
+        val resizedBitmap = resizeImage2(uri, 800, 800)
+        val resizedImageByteArray = ByteArrayOutputStream().apply {
+            resizedBitmap?.compress(Bitmap.CompressFormat.JPEG, 80, this)
+        }.toByteArray()
+
+        resizedBitmap?.recycle()
+
+        val requestFile = resizedImageByteArray.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val body = MultipartBody.Part.createFormData("image", getFileName(uri), requestFile)
+
+        val description = "This is an image".toRequestBody(MultipartBody.FORM)
+
+        // API 호출
+        call!!.uploadImage(body, description).enqueue(object : Callback<ResponseDTO> {
+            override fun onResponse(call: Call<ResponseDTO>, response: Response<ResponseDTO>) {
+                if (response.isSuccessful) {
+                    Log.d("Upload", "Upload success!")
+                    face_Age()
+                } else {
+                    Log.d("Upload", "Upload failed!")
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseDTO>, t: Throwable) {
+                Log.d("Upload", "Upload error: ${t.message}")
+            }
+        })
+
+    }
+//  테스트를 위한 임시 함수
+    private fun resizeImage2(uri: Uri, maxWidth: Int, maxHeight: Int): Bitmap? {
+        val options = BitmapFactory.Options().apply {
+            inJustDecodeBounds = true
+            BitmapFactory.decodeStream(activity?.contentResolver?.openInputStream(uri), null, this)
+            val imageWidth = outWidth
+            val imageHeight = outHeight
+
+            var scaleFactor = 1
+            if (imageWidth > maxWidth || imageHeight > maxHeight) {
+                val widthRatio = imageWidth.toFloat() / maxWidth.toFloat()
+                val heightRatio = imageHeight.toFloat() / maxHeight.toFloat()
+                scaleFactor = Math.ceil(Math.max(widthRatio, heightRatio).toDouble()).toInt()
+            }
+
+            inJustDecodeBounds = false
+            inSampleSize = scaleFactor
+        }
+
+        return BitmapFactory.decodeStream(activity?.contentResolver?.openInputStream(uri), null, options)
+    }
+
+
+    @SuppressLint("Range")
+    private fun getFileName(uri: Uri): String {
+        var result: String? = null
+        if (uri.scheme == "content") {
+            val cursor = activity?.contentResolver?.query(uri, null, null, null, null)
+            cursor.use { cursor ->
+                if (cursor != null && cursor.moveToFirst()) {
+                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+                }
+            }
+        }
+        if (result == null) {
+            result = uri.path
+            val cut = result?.lastIndexOf('/')
+            if (cut != -1) {
+                result = result?.substring(cut!! + 1)
+            }
+        }
+        return result ?: "unknown"
+    }
 //  카메라 권한 요청
     private fun requestCameraPermission() {
         requestPermissionLauncher.launch(Manifest.permission.CAMERA)
@@ -118,8 +217,9 @@ class FaceDetectFragment : Fragment(), ImageCapture.OnImageSavedCallback {
     }
 //  카메라 권한 요청
     private fun checkCameraPermission() {
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
             requestCameraPermission()
+            ActivityCompat.requestPermissions(context as Activity, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 101)
         } else {
             startCamera()
         }
@@ -248,18 +348,19 @@ class FaceDetectFragment : Fragment(), ImageCapture.OnImageSavedCallback {
         }
     }
 
-//  이미지 전송 API 함수
+    //  이미지 전송 API 함수
     private fun sendImageToServer(imagePath: String) {
         val imageFile = File(imagePath)
         val resizedImageFile = resizeImage(imageFile, 800, 800)
 
         // 파일을 MultipartBody.Part로 변환
-        val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), resizedImageFile)
+        val requestFile =
+            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), resizedImageFile)
         val body = MultipartBody.Part.createFormData("image", resizedImageFile.name, requestFile)
         Log.d("sendImageData", resizedImageFile.toString())
 
         // 설명(description)을 MultipartBody.Part로 변환
-        val description = RequestBody.create(MultipartBody.FORM, "This is an image")
+        val description = "This is an image".toRequestBody(MultipartBody.FORM)
 
         // API 호출
         call!!.uploadImage(body, description).enqueue(object : Callback<ResponseDTO> {
@@ -287,6 +388,7 @@ class FaceDetectFragment : Fragment(), ImageCapture.OnImageSavedCallback {
 
                 if (response.isSuccessful){
                     val faceAgeBundle = Bundle()
+                    Log.d("faceAge", response.body()!!.preictions)
                     faceAgeBundle.putString("faceAge", response.body()!!.preictions)
                     findNavController().navigate(R.id.action_facedetectFragment_to_Main_Fragment, faceAgeBundle)
                 }
@@ -298,7 +400,6 @@ class FaceDetectFragment : Fragment(), ImageCapture.OnImageSavedCallback {
 
         })
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
