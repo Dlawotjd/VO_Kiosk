@@ -1,4 +1,4 @@
-package com.vo.vo_kiosk.View
+package com.vo.vo_kiosk.View.OrderClick
 
 import android.os.Bundle
 import android.util.Log
@@ -6,11 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.tabs.TabLayoutMediator
 import com.vo.vo_kiosk.Adapter.QRAdapter
@@ -94,20 +92,6 @@ class ClickMenuFragment : Fragment() {
             recyclerView.adapter = adapter
 
         }
-
-        binding.totalBottomSheet.bottomConstrainLayout2.setOnClickListener {
-            val clickedView = binding.totalBottomSheet.bottomConstrainLayout2
-            val currentBehavior = BottomSheetBehavior.from(clickedView)
-
-            if (currentBehavior.isDraggable) {
-                currentBehavior.isDraggable = false
-            } else {
-                currentBehavior.isDraggable = true
-            }
-        }
-
-
-
 
         return binding.root
     }

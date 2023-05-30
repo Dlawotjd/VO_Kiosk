@@ -14,6 +14,7 @@ class MenuOrderViewModel(application: Application) : AndroidViewModel(applicatio
         repository = MenuOrderRepository()
         repository.initOrder()
     }
+
     val orderData : LiveData<OrderData?> = repository.orderData
 
     fun sendVoiceResult(voiceResult: String) {

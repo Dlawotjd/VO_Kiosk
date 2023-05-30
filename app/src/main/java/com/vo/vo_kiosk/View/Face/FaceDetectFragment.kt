@@ -1,4 +1,4 @@
-package com.vo.vo_kiosk.View
+package com.vo.vo_kiosk.View.Face
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -29,7 +29,6 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.loader.content.CursorLoader
 import androidx.navigation.fragment.findNavController
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.face.FaceDetection
@@ -42,10 +41,10 @@ import com.vo.vo_kiosk.NetWork.Retrofit2
 import com.vo.vo_kiosk.R
 import com.vo.vo_kiosk.databinding.FragmentFacedetectBinding
 import okhttp3.MediaType
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -99,50 +98,40 @@ class FaceDetectFragment : Fragment(), ImageCapture.OnImageSavedCallback {
         getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { result ->
             if (result != null) {
                 // 이미지 전송 시작
-                Log.d("imageClickPath", result.toString())
-                sendImageToServer2(result)
+                Log.d("선택한 이미지 경로", result.toString())
+                sendImageToServer2()
             } else {
-                Toast.makeText(requireContext(), "Cannot get input stream from the selected image", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "선택된 이미지가 없음", Toast.LENGTH_LONG).show()
             }
         }
-
-
-
         return binding.root
     }
 //  테스트를 위한 임시 함수
-    private fun sendImageToServer2(uri: Uri) {
+private fun sendImageToServer2() {
+    val emptyByteArray = ByteArray(0)
+    val requestFile = emptyByteArray.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+    val body = MultipartBody.Part.createFormData("image", "", requestFile)
 
-        val resizedBitmap = resizeImage2(uri, 800, 800)
-        val resizedImageByteArray = ByteArrayOutputStream().apply {
-            resizedBitmap?.compress(Bitmap.CompressFormat.JPEG, 80, this)
-        }.toByteArray()
+    val description = "This is an image".toRequestBody(MultipartBody.FORM)
 
-        resizedBitmap?.recycle()
-
-        val requestFile = resizedImageByteArray.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-        val body = MultipartBody.Part.createFormData("image", getFileName(uri), requestFile)
-
-        val description = "This is an image".toRequestBody(MultipartBody.FORM)
-
-        // API 호출
-        call!!.uploadImage(body, description).enqueue(object : Callback<ResponseDTO> {
-            override fun onResponse(call: Call<ResponseDTO>, response: Response<ResponseDTO>) {
-                if (response.isSuccessful) {
-                    Log.d("Upload", "Upload success!")
-                    face_Age()
-                } else {
-                    Log.d("Upload", "Upload failed!")
-                }
+    // API 호출
+    call!!.uploadImage(body, description).enqueue(object : Callback<ResponseDTO> {
+        override fun onResponse(call: Call<ResponseDTO>, response: Response<ResponseDTO>) {
+            if (response.isSuccessful) {
+                Log.d("Upload", "Upload success!")
+                face_Age()
+            } else {
+                Log.d("Upload", "Upload failed!")
             }
+        }
 
-            override fun onFailure(call: Call<ResponseDTO>, t: Throwable) {
-                Log.d("Upload", "Upload error: ${t.message}")
-            }
-        })
+        override fun onFailure(call: Call<ResponseDTO>, t: Throwable) {
+            Log.d("Upload", "Upload error: ${t.message}")
+        }
+    })
+}
 
-    }
-//  테스트를 위한 임시 함수
+    //  테스트를 위한 임시 함수
     private fun resizeImage2(uri: Uri, maxWidth: Int, maxHeight: Int): Bitmap? {
         val options = BitmapFactory.Options().apply {
             inJustDecodeBounds = true
@@ -161,8 +150,32 @@ class FaceDetectFragment : Fragment(), ImageCapture.OnImageSavedCallback {
             inSampleSize = scaleFactor
         }
 
-        return BitmapFactory.decodeStream(activity?.contentResolver?.openInputStream(uri), null, options)
+        val resizedBitmap = BitmapFactory.decodeStream(activity?.contentResolver?.openInputStream(uri), null, options)
+
+        val inputStream = activity?.contentResolver?.openInputStream(uri)
+        val exifInterface = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            ExifInterface(inputStream!!)
+        } else {
+            ExifInterface(uri.path!!)
+        }
+        val orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
+        val degrees = when (orientation) {
+            ExifInterface.ORIENTATION_ROTATE_90 -> 90
+            ExifInterface.ORIENTATION_ROTATE_180 -> 180
+            ExifInterface.ORIENTATION_ROTATE_270 -> 270
+            else -> 0
+        }
+
+        // Rotate the image by the retrieved degrees
+        if (resizedBitmap != null && degrees != 0) {
+            val matrix = Matrix()
+            matrix.postRotate(degrees.toFloat())
+            return Bitmap.createBitmap(resizedBitmap, 0, 0, resizedBitmap.width, resizedBitmap.height, matrix, true)
+        }
+
+        return resizedBitmap
     }
+
 
 
     @SuppressLint("Range")
@@ -252,12 +265,14 @@ class FaceDetectFragment : Fragment(), ImageCapture.OnImageSavedCallback {
                 })
         }, 500) // 사용자 인식 얼굴 위치에 조절을 위한 1.5초 후에 실행
     }
+
 //  임시 파일 경로
     private fun createTempFile(): File {
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
         val storageDir = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile("${timeStamp}_", ".jpg", storageDir)
     }
+
 //  얼굴 이미지 인식
     private fun detectFaces(imagePath: String, imagePath2: String) {
         val image = InputImage.fromFilePath(requireContext(), Uri.parse(imagePath))
@@ -329,7 +344,7 @@ class FaceDetectFragment : Fragment(), ImageCapture.OnImageSavedCallback {
         // 이미지를 축소하여 새로운 파일로 저장
         val resizedImageFile = File.createTempFile("resized_", ".jpg", requireContext().cacheDir)
         FileOutputStream(resizedImageFile).use { outputStream ->
-            rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 80, outputStream)
+            rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 60, outputStream)
             outputStream.flush()
         }
 
@@ -348,14 +363,15 @@ class FaceDetectFragment : Fragment(), ImageCapture.OnImageSavedCallback {
         }
     }
 
+
     //  이미지 전송 API 함수
     private fun sendImageToServer(imagePath: String) {
         val imageFile = File(imagePath)
-        val resizedImageFile = resizeImage(imageFile, 800, 800)
+        val resizedImageFile = resizeImage(imageFile, 500, 500)
+
 
         // 파일을 MultipartBody.Part로 변환
-        val requestFile =
-            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), resizedImageFile)
+        val requestFile = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), resizedImageFile)
         val body = MultipartBody.Part.createFormData("image", resizedImageFile.name, requestFile)
         Log.d("sendImageData", resizedImageFile.toString())
 
@@ -388,8 +404,8 @@ class FaceDetectFragment : Fragment(), ImageCapture.OnImageSavedCallback {
 
                 if (response.isSuccessful){
                     val faceAgeBundle = Bundle()
-                    Log.d("faceAge", response.body()!!.preictions)
-                    faceAgeBundle.putString("faceAge", response.body()!!.preictions)
+                    Log.d("faceAge", response.body()!!.prediction)
+                    faceAgeBundle.putString("faceAge", response.body()!!.prediction)
                     findNavController().navigate(R.id.action_facedetectFragment_to_Main_Fragment, faceAgeBundle)
                 }
             }

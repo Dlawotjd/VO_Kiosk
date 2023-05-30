@@ -1,6 +1,5 @@
-package com.vo.vo_kiosk.View.TabFragment.OrderDetail
+package com.vo.vo_kiosk.View.OrderClick.OrderDetail
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,7 +17,6 @@ import com.vo.vo_kiosk.DTO.MenuData
 import com.vo.vo_kiosk.DTO.MenuOption
 import com.vo.vo_kiosk.DTO.OrderList
 import com.vo.vo_kiosk.NetWork.Retrofit2
-import com.vo.vo_kiosk.R
 import com.vo.vo_kiosk.ViewModel.OrderMenuViewModel
 import com.vo.vo_kiosk.databinding.FragmentOrderDetailBinding
 import retrofit2.Call

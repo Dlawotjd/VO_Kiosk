@@ -3,8 +3,8 @@ package com.vo.vo_kiosk.DTO
 import com.google.gson.annotations.SerializedName
 
 data class FaceAge(
-    @SerializedName("preictions")
-    val preictions : String
+    @SerializedName("prediction")
+    val prediction : String
 )
 
 data class FolderPath(

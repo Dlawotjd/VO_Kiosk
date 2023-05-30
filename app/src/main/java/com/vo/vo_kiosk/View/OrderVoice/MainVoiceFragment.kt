@@ -1,4 +1,4 @@
-package com.vo.vo_kiosk.View
+package com.vo.vo_kiosk.View.OrderVoice
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -36,14 +36,4 @@ class MainVoiceFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-//    private fun onButtonClicked() {
-//        val newDataList = generateNewDataList()
-//        sharedViewModel.setQRData(newDataList)
-//    }
-//
-//    // QR 데이터 목록을 생성하는 코드 (샘플 코드)
-//    private fun generateNewDataList(): List<String> {
-//        // QR 데이터 목록을 생성하는 로직을 여기에 구현하세요.
-//        return listOf("data1", "data2", "data3")
-//    }
 }

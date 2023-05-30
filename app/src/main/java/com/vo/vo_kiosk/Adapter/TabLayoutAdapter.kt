@@ -2,10 +2,10 @@ package com.vo.vo_kiosk.Adapter
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.vo.vo_kiosk.View.TabFragment.DesertMenuFragment
-import com.vo.vo_kiosk.View.TabFragment.MainMenuFragment
-import com.vo.vo_kiosk.View.TabFragment.SideMenuFragment
-import com.vo.vo_kiosk.View.TabFragment.TotalMenuFragment
+import com.vo.vo_kiosk.View.OrderClick.DesertMenuFragment
+import com.vo.vo_kiosk.View.OrderClick.MainMenuFragment
+import com.vo.vo_kiosk.View.OrderClick.SideMenuFragment
+import com.vo.vo_kiosk.View.OrderClick.TotalMenuFragment
 
 class TabLayoutAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 

@@ -1,4 +1,4 @@
-package com.vo.vo_kiosk.View.TabFragment
+package com.vo.vo_kiosk.View.OrderClick
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,28 +13,28 @@ import com.vo.vo_kiosk.Adapter.MenuAdapter
 import com.vo.vo_kiosk.DTO.MenuDTO
 import com.vo.vo_kiosk.R
 import com.vo.vo_kiosk.ViewModel.OrderDetailViewModel
-import com.vo.vo_kiosk.databinding.FragmentDesertBinding
+import com.vo.vo_kiosk.databinding.FragmentSideMenuBinding
 
-class DesertMenuFragment : Fragment(), MenuAdapter.OnItemClickListener {
+class SideMenuFragment : Fragment(), MenuAdapter.OnItemClickListener {
 
-    private var _binding : FragmentDesertBinding? = null
+    private var _binding : FragmentSideMenuBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel : OrderDetailViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentDesertBinding.inflate(inflater, container, false)
+        _binding = FragmentSideMenuBinding.inflate(inflater, container, false)
 
         viewModel = ViewModelProvider(this)[OrderDetailViewModel::class.java]
 
-        val desertRecyclerView = binding.desertRecyclerView
-        desertRecyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+        val recyclerView = binding.sideRecyclerView
+        recyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
 
         val menuAdapter = MenuAdapter(this)
-        desertRecyclerView.adapter = menuAdapter
+        recyclerView.adapter = menuAdapter
 
-        viewModel.getMenu("dessert")
+        viewModel.getMenu("drink")
         viewModel.allMenu.observe(viewLifecycleOwner, Observer { menuResponse ->
             menuAdapter.submitList(menuResponse.result)
         })
@@ -54,7 +54,6 @@ class DesertMenuFragment : Fragment(), MenuAdapter.OnItemClickListener {
         bundle.putString("menuName", menu.mainMenu)
         bundle.putString("menuPrice", menu.mainPrice.toString())
         bundle.putString("menuImg", menu.mainImg)
-
         findNavController().navigate(R.id.action_clickMenuFragment_to_orderDetailOtherFragment, bundle)
     }
 

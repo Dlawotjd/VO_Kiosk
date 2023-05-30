@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/facedetectFragment"
-        android:name="com.vo.vo_kiosk.View.FaceDetectFragment"
+        android:name="com.vo.vo_kiosk.View.Face.FaceDetectFragment"
         android:label="fragment_guide_line_fragement"
         tools:layout="@layout/fragment_facedetect" >
         <action
@@ -42,13 +42,13 @@
 
     <fragment
         android:id="@+id/menuOrderFragment"
-        android:name="com.vo.vo_kiosk.View.VoiceOrderFragment"
+        android:name="com.vo.vo_kiosk.View.OrderVoice.VoiceOrderFragment"
         android:label="fragment_menu_orlder"
         tools:layout="@layout/fragment_menu_order" />
 
     <fragment
         android:id="@+id/clickMenuFragment"
-        android:name="com.vo.vo_kiosk.View.ClickMenuFragment"
+        android:name="com.vo.vo_kiosk.View.OrderClick.ClickMenuFragment"
         android:label="fragment_click_menu"
         tools:layout="@layout/fragment_click_menu" >
         <action
@@ -76,7 +76,7 @@
 
     <fragment
         android:id="@+id/orderDetailFragment"
-        android:name="com.vo.vo_kiosk.View.TabFragment.OrderDetail.OrderDetailFragment"
+        android:name="com.vo.vo_kiosk.View.OrderClick.OrderDetail.OrderDetailFragment"
         android:label="fragment_order_detail"
         tools:layout="@layout/fragment_order_detail" >
         <action
@@ -95,7 +95,7 @@
         tools:layout="@layout/fragment_shoping" />
     <fragment
         android:id="@+id/orderDetailOtherFragment"
-        android:name="com.vo.vo_kiosk.View.TabFragment.OrderDetail.OrderDetailOtherFragment"
+        android:name="com.vo.vo_kiosk.View.OrderClick.OrderDetail.OrderDetailOtherFragment"
         android:label="OrderDetailOtherFragment" >
         <action
             android:id="@+id/action_orderDetailOtherFragment_to_clickMenuFragment"

@@ -17,7 +17,6 @@ import java.net.URISyntaxException
 class MenuOrderRepository {
 
     private lateinit var mSocket: Socket
-    private val gson = Gson()
 
     private val _orderData = MutableLiveData<OrderData?>()
     val orderData : MutableLiveData<OrderData?> = _orderData
@@ -41,7 +40,6 @@ class MenuOrderRepository {
 
 //      서버 데이터 확인
         mSocket.on("message", onMessageReceived)
-
 
     }
 

@@ -1,5 +1,6 @@
-package com.vo.vo_kiosk.View.TabFragment
+package com.vo.vo_kiosk.View.OrderClick
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,28 +14,29 @@ import com.vo.vo_kiosk.Adapter.MenuAdapter
 import com.vo.vo_kiosk.DTO.MenuDTO
 import com.vo.vo_kiosk.R
 import com.vo.vo_kiosk.ViewModel.OrderDetailViewModel
-import com.vo.vo_kiosk.databinding.FragmentSideMenuBinding
+import com.vo.vo_kiosk.databinding.FragmentTotalMenuBinding
 
-class SideMenuFragment : Fragment(), MenuAdapter.OnItemClickListener {
+class TotalMenuFragment : Fragment(), MenuAdapter.OnItemClickListener{
 
-    private var _binding : FragmentSideMenuBinding? = null
+    private var _binding : FragmentTotalMenuBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel : OrderDetailViewModel
+    @SuppressLint("RestrictedApi")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentSideMenuBinding.inflate(inflater, container, false)
+        _binding = FragmentTotalMenuBinding.inflate(inflater, container, false)
 
         viewModel = ViewModelProvider(this)[OrderDetailViewModel::class.java]
 
-        val recyclerView = binding.sideRecyclerView
-        recyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+        val totalRecyclerView = binding.totalRecyclerView
+        totalRecyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
 
         val menuAdapter = MenuAdapter(this)
-        recyclerView.adapter = menuAdapter
+        totalRecyclerView.adapter = menuAdapter
 
-        viewModel.getMenu("drink")
+        viewModel.getMenu("set")
         viewModel.allMenu.observe(viewLifecycleOwner, Observer { menuResponse ->
             menuAdapter.submitList(menuResponse.result)
         })
@@ -42,19 +44,19 @@ class SideMenuFragment : Fragment(), MenuAdapter.OnItemClickListener {
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
-
-    override fun onItemClick(menu: MenuDTO, itemView : View) {
+    override fun onItemClick(menu: MenuDTO, itemView: View) {
         val bundle = Bundle()
 
         bundle.putString("menuId", menu.mainId.toString())
         bundle.putString("menuName", menu.mainMenu)
         bundle.putString("menuPrice", menu.mainPrice.toString())
         bundle.putString("menuImg", menu.mainImg)
-        findNavController().navigate(R.id.action_clickMenuFragment_to_orderDetailOtherFragment, bundle)
+        findNavController().navigate(R.id.action_clickMenuFragment_to_orderDetailFragment, bundle)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 }

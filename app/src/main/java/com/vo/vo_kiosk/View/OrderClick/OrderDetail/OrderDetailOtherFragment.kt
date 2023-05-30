@@ -1,4 +1,4 @@
-package com.vo.vo_kiosk.View.TabFragment.OrderDetail
+package com.vo.vo_kiosk.View.OrderClick.OrderDetail
 
 import android.os.Bundle
 import android.util.Log
@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.vo.vo_kiosk.DTO.OrderList
-import com.vo.vo_kiosk.R
 import com.vo.vo_kiosk.ViewModel.OrderMenuViewModel
 import com.vo.vo_kiosk.databinding.FragmentOrderDetailOtherBinding
 

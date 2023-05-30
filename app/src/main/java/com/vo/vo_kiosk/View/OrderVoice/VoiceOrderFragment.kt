@@ -1,4 +1,4 @@
-package com.vo.vo_kiosk.View
+package com.vo.vo_kiosk.View.OrderVoice
 
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider

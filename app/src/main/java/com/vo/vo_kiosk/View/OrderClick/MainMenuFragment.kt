@@ -1,7 +1,6 @@
-package com.vo.vo_kiosk.View.TabFragment
+package com.vo.vo_kiosk.View.OrderClick
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,14 +11,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.vo.vo_kiosk.Adapter.MenuAdapter
 import com.vo.vo_kiosk.DTO.MenuDTO
-import com.vo.vo_kiosk.DTO.MenuResponse
-import com.vo.vo_kiosk.NetWork.Retrofit2
 import com.vo.vo_kiosk.R
 import com.vo.vo_kiosk.ViewModel.OrderDetailViewModel
 import com.vo.vo_kiosk.databinding.FragmentMainMenuBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MainMenuFragment : Fragment(), MenuAdapter.OnItemClickListener {
 
